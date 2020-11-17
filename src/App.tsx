@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { setConfig } from "react-hot-loader";
+import * as React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+// import * as Router from "react-router-dom";
+import SideNav from "./components/SideNav";
+import TopNav from "./components/TopNav";
+import Category from "./Views/Category/CategoryRouter"
+
+setConfig({
+    reloadHooks: false,
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <Router>
+            <div id="wrapper">
+                <Route path={"/"} component={SideNav} />
+                <div id="page-wrapper" className="gray-bg">
+                    <TopNav />
+                    <Route path="/category" component={Category} />
+                    <Route path="/author" component={Category} />
+                    <Route path="/book" component={Category} />
+                    {/* <h1>Hi from React! Welcome to !sada</h1> */}
+                </div>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
