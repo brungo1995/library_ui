@@ -48,6 +48,16 @@ const items = [
 ]
 export default function PermanentDrawerLeft() {
     const classes = useStyles();
+    let entityPathName = window.location.pathname.replace(/\//g, '');
+
+    // let isSelected = (navItem) => {
+    //     navItem
+    //     debugger
+    //     return true;
+    //     items.findIndex(item => item.name.toLocaleLowerCase().includes(entityPathName)) > -1 ? true : false;
+    // }
+
+    console.log(items.findIndex(item => item.name.toLocaleLowerCase() === entityPathName))
 
     return (
         // <div className={classes.root}>
@@ -71,7 +81,10 @@ export default function PermanentDrawerLeft() {
                 <div className={classes.toolbar} />
                 <List>
                     {items.map((item, index) => (
-                        <ListItem button key={item.name}>
+                        <ListItem button key={item.name}
+                            selected={item.name.toLocaleLowerCase().includes(entityPathName)}
+                        // selected={to === location.pathname} 
+                        >
                             <ListItemIcon>{<item.icon />}</ListItemIcon>
                             <ListItemText primary={item.name} />
                         </ListItem>

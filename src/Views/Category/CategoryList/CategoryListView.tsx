@@ -127,14 +127,16 @@ function CategoryListView(): JSX.Element {
         setPage(0);
     };
 
+    const handleClick = (id) => {
+        console.log(id)
+    };
+
     function TablePaginationActions(props: TablePaginationActionsProps) {
         const classes = useStyles1();
         const theme = useTheme();
         const { count, page, rowsPerPage, onChangePage } = props;
 
-        const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            onChangePage(event, 0);
-        };
+
 
         const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             onChangePage(event, page - 1);
@@ -186,9 +188,9 @@ function CategoryListView(): JSX.Element {
                 <Grid container spacing={3}>
                     <Grid item xs={8}>
                         <Container className={classes.search}>
-                            <Container className={classes.searchIcon}>
+                            {/* <Container className={classes.searchIcon}>
                                 <SearchIcon />
-                            </Container>
+                            </Container> */}
                             <InputBase
                                 placeholder="Search by name …"
                                 classes={{
@@ -215,7 +217,10 @@ function CategoryListView(): JSX.Element {
                                             ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                             : data
                                         ).map((row, idx) => (
-                                            <TableRow key={idx}>
+                                            <TableRow key={idx}
+                                                onClick={() => handleClick(row.category_id)}
+                                            // onClick={() => handleClick(row.id)}
+                                            >
                                                 <TableCell component="th" scope="row">
                                                     {row.name}
                                                 </TableCell>

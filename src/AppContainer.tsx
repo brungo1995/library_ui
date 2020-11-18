@@ -21,12 +21,18 @@ function AppContainer() {
   const classes = useStyles();
 
 
+  // if(!username){
+  //   return <Login />
+  // }
+
+
   return (
     <>
       <Container className={classes.root}>
         <LeftSideNav />
         <Container className={classes.content}>
           <div className={classes.toolbar} />
+          {/* ADD ROUTE HERE */}
           <ContainerComponent />
           {/* <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
