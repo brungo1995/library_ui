@@ -12,6 +12,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import TabPanel from "../../../components/TabPanel";
+import { useHistory, useParams } from "react-router-dom";
+import EditIcon from '@material-ui/icons/Edit';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // interface props extends RouteComponentProps<any, any, any> { }
-// function CategoryListView({ history, match, location }: props): JSX.Element {
+// function CategoryInfoView({ history, match, location }: props): JSX.Element {
 function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
     return { name, calories, fat, carbs, protein };
 }
@@ -41,11 +45,20 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function CategoryListView(): JSX.Element {
+function CategoryInfoView({ value }): JSX.Element {
     const classes = useStyles();
+    const history = useHistory();
+    const params = useParams();
+
+
+    function onEdit() {
+        let category_id = params['category_id']
+        history.push(`/category/${category_id}`);
+    }
+
 
     return (
-        <React.Fragment>
+        <TabPanel value={value} index={1}>
             <CssBaseline />
             <Container maxWidth="lg">
                 <div className={classes.root}>
@@ -77,17 +90,26 @@ function CategoryListView(): JSX.Element {
                                 startIcon={<DeleteIcon />}
                             >
                                 Delete
-      </Button>
-
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                size="large"
+                                onClick={() => onEdit()}
+                                // className={classes.button}
+                                startIcon={<EditIcon />}
+                            >
+                                Edit
+                            </Button>
                         </Grid>
                     </Grid>
                 </div>
             </Container>
-        </React.Fragment>
+        </TabPanel>
     )
 }
 
-export default CategoryListView;
+export default CategoryInfoView;
 
 
 const data =

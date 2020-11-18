@@ -26,6 +26,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
+import TabPanel from "../../../components/TabPanel";
+import { useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -108,8 +110,10 @@ function createData(name: string, calories: number, fat: number, carbs: number, 
     return { name, calories, fat, carbs, protein };
 }
 
-function CategoryListView(): JSX.Element {
+function CategoryListView({ value }) {
     const classes = useStyles();
+    const history = useHistory();
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -128,6 +132,7 @@ function CategoryListView(): JSX.Element {
     };
 
     const handleClick = (id) => {
+        history.push(`/category/${id}/info`)
         console.log(id)
     };
 
@@ -135,8 +140,6 @@ function CategoryListView(): JSX.Element {
         const classes = useStyles1();
         const theme = useTheme();
         const { count, page, rowsPerPage, onChangePage } = props;
-
-
 
         const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             onChangePage(event, page - 1);
@@ -183,58 +186,59 @@ function CategoryListView(): JSX.Element {
 
     return (
         <>
-            <CssBaseline />
-            <Container maxWidth="lg" className={classes.root}>
-                <Grid container spacing={3}>
-                    <Grid item xs={8}>
-                        <Container className={classes.search}>
-                            {/* <Container className={classes.searchIcon}>
+            <TabPanel value={value} index={0}>
+                <CssBaseline />
+                <Container maxWidth="lg" className={classes.root}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={8}>
+                            <Container className={classes.search}>
+                                {/* <Container className={classes.searchIcon}>
                                 <SearchIcon />
                             </Container> */}
-                            <InputBase
-                                placeholder="Search by name …"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
-                        </Container>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TableContainer component={Paper}>
+                                <InputBase
+                                    placeholder="Search by name …"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </Container>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TableContainer component={Paper}>
 
-                            <Container>
-                                <Table className={classes.table} aria-label="simple table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Name</TableCell>
-                                            <TableCell align="left">Description</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {(rowsPerPage > 0
-                                            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                            : data
-                                        ).map((row, idx) => (
-                                            <TableRow key={idx}
-                                                onClick={() => handleClick(row.category_id)}
-                                            // onClick={() => handleClick(row.id)}
-                                            >
-                                                <TableCell component="th" scope="row">
-                                                    {row.name}
-                                                </TableCell>
-                                                <TableCell align="left">
-                                                    {row.description}
-                                                </TableCell>
+                                <Container>
+                                    <Table className={classes.table} aria-label="simple table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Name</TableCell>
+                                                <TableCell align="left">Description</TableCell>
                                             </TableRow>
-                                        ))}
-                                        {emptyRows > 0 && (
-                                            <TableRow style={{ height: 53 * emptyRows }}>
-                                                <TableCell colSpan={6} />
-                                            </TableRow>
-                                        )}
-                                        {/* {data.map((row, i) => (
+                                        </TableHead>
+                                        <TableBody>
+                                            {(rowsPerPage > 0
+                                                ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                : data
+                                            ).map((row, idx) => (
+                                                <TableRow key={idx}
+                                                    onClick={() => handleClick(row.category_id)}
+                                                // onClick={() => handleClick(row.id)}
+                                                >
+                                                    <TableCell component="th" scope="row">
+                                                        {row.name}
+                                                    </TableCell>
+                                                    <TableCell align="left">
+                                                        {row.description}
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                            {emptyRows > 0 && (
+                                                <TableRow style={{ height: 53 * emptyRows }}>
+                                                    <TableCell colSpan={6} />
+                                                </TableRow>
+                                            )}
+                                            {/* {data.map((row, i) => (
                                             <TableRow key={i}>
                                                 <TableCell component="th" scope="row">
                                                     {row.name}
@@ -242,34 +246,36 @@ function CategoryListView(): JSX.Element {
                                                 <TableCell align="right">{row.description}</TableCell>
                                             </TableRow>
                                         ))} */}
-                                    </TableBody>
-                                    <TableFooter>
-                                        <TableRow>
-                                            <TablePagination
-                                                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                                                colSpan={6}
-                                                count={data.length}
-                                                rowsPerPage={rowsPerPage}
-                                                page={page}
-                                                SelectProps={{
-                                                    inputProps: { 'aria-label': 'rows per page' },
-                                                    native: true,
-                                                }}
-                                                onChangePage={handleChangePage}
-                                                onChangeRowsPerPage={handleChangeRowsPerPage}
-                                                ActionsComponent={TablePaginationActions}
-                                            />
-                                        </TableRow>
-                                    </TableFooter>
-                                </Table>
+                                        </TableBody>
+                                        <TableFooter>
+                                            <TableRow>
+                                                <TablePagination
+                                                    rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                                                    colSpan={6}
+                                                    count={data.length}
+                                                    rowsPerPage={rowsPerPage}
+                                                    page={page}
+                                                    SelectProps={{
+                                                        inputProps: { 'aria-label': 'rows per page' },
+                                                        native: true,
+                                                    }}
+                                                    onChangePage={handleChangePage}
+                                                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                                                    ActionsComponent={TablePaginationActions}
+                                                />
+                                            </TableRow>
+                                        </TableFooter>
+                                    </Table>
 
-                            </Container>
+                                </Container>
 
-                        </TableContainer>
+                            </TableContainer>
 
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Container>
+                </Container>
+
+            </TabPanel>
         </>
     )
 }

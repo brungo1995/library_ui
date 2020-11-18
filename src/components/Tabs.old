@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import CategoryListView from '../Views/Category/CategoryList/CategoryListView';
+// import CategoryListView from '../Views/Category/CategoryList/CategoryListView';
 // import CategoryInfoView from '../Views/Category/CategoryInfo/CategoryInfoView';
 // import CategoryEditView from '../Views/Category/CategoryEdit/CategoryEditView';
 import Container from '@material-ui/core/Container';
@@ -70,9 +70,9 @@ export default function SimpleTabs() {
                     <Tab label="Edit" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
+            {/* <TabPanel value={value} index={0}>
                 <CategoryListView />
-            </TabPanel>
+            </TabPanel> */}
         </Container>
         /*  <TabPanel value={value} index={1}>
             <CategoryInfoView />

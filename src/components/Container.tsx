@@ -4,7 +4,11 @@ import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Tabs from "./Tabs"
+// import CategoryTabs from "./Tabs.old"
+// import Tabs fro./Tabs.oldabs"
+import CategoryRouter from "../Views/Category/CategoryRouter"
+import { Route } from 'react-router-dom';
+import { Category } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,31 +31,14 @@ export default function SimpleContainer() {
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg" className={classes.root}>
-                {/* <div className={classes.root}> */}
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         {/* ROUTER WILL COME HERE */}
-                        <Tabs />
-                        {/* <Paper className={classes.paper}>xs=12</Paper> */}
+                        <Route path="/category" component={CategoryRouter} />
+                        <Route path="/author" component={Category} />
+                        <Route path="/book" component={Category} />
+                        {/* <Tabs /> */}
                     </Grid>
-                    {/* <Grid item xs={6}>
-                            <Paper className={classes.paper}>xs=6</Paper>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Paper className={classes.paper}>xs=6</Paper>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}>xs=3</Paper>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}>xs=3</Paper>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}>xs=3</Paper>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Paper className={classes.paper}>xs=3</Paper>
-                        </Grid> */}
                 </Grid>
             </Container>
         </React.Fragment>

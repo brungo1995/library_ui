@@ -12,6 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CategoryIcon from '@material-ui/icons/Category';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import { useHistory, useParams, useLocation } from "react-router-dom";
+import EditIcon from '@material-ui/icons/Edit';
 
 const drawerWidth = 240;
 
@@ -40,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-// 'Category', 'Author', 'Book'
 const items = [
     { name: "Category", icon: CategoryIcon },
     { name: "Author", icon: AssignmentIndIcon },
@@ -48,19 +49,18 @@ const items = [
 ]
 export default function PermanentDrawerLeft() {
     const classes = useStyles();
-    let entityPathName = window.location.pathname.replace(/\//g, '');
+    const history = useHistory();
+    const params = useParams();
+    const location = useLocation();
 
-    // let isSelected = (navItem) => {
-    //     navItem
-    //     debugger
-    //     return true;
-    //     items.findIndex(item => item.name.toLocaleLowerCase().includes(entityPathName)) > -1 ? true : false;
-    // }
+    let entityPathName = history.location.pathname.split('/')[1] || null;
 
-    console.log(items.findIndex(item => item.name.toLocaleLowerCase() === entityPathName))
+    function goToTabByName(itemName) {
+        let url = history.location.pathname.split('/');
+        history.push(`/${itemName}`)
+    }
 
     return (
-        // <div className={classes.root}>
         <>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
@@ -83,7 +83,7 @@ export default function PermanentDrawerLeft() {
                     {items.map((item, index) => (
                         <ListItem button key={item.name}
                             selected={item.name.toLocaleLowerCase().includes(entityPathName)}
-                        // selected={to === location.pathname} 
+                            onClick={() => goToTabByName(item.name.toLocaleLowerCase())}
                         >
                             <ListItemIcon>{<item.icon />}</ListItemIcon>
                             <ListItemText primary={item.name} />
@@ -91,34 +91,6 @@ export default function PermanentDrawerLeft() {
                     ))}
                 </List>
             </Drawer>
-
         </>
-        /* <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Typography paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                donec massa sapien faucibus et molestie ac.
-    </Typography>
-            <Typography paragraph>
-                Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-                facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-                tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-                consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-                vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-                hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-                tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-                nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-                accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-    </Typography>
-        </main> */
-        // </div>
     );
 }

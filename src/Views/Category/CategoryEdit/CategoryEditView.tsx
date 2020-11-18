@@ -13,6 +13,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
+import TabPanel from "../../../components/TabPanel";
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,11 +32,17 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function CategoryEditView(): JSX.Element {
+function CategoryEditView({ value }): JSX.Element {
     const classes = useStyles();
+    const history = useHistory();
+    const params = useParams();
+
+    function onCancel() {
+        history.goBack();
+    }
 
     return (
-        <React.Fragment>
+        <TabPanel value={value} index={2}>
             <CssBaseline />
             <Container maxWidth="lg">
                 <div className={classes.root}>
@@ -81,47 +89,24 @@ function CategoryEditView(): JSX.Element {
                                     startIcon={<SaveIcon />}
                                 >
                                     Save
-      </Button>
+                                </Button>
                                 <Button
                                     variant="contained"
                                     size="large"
                                     color="secondary"
                                     className={classes.button}
+                                    onClick={() => onCancel()}
                                 // startIcon={<DeleteIcon />}
                                 >
                                     Cancel
-      </Button>
-
+                                </Button>
                             </Grid>
 
                         </Grid>
-                        {/* <Grid item xs={2}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                size="large"
-                                className={classes.button}
-                                startIcon={<SaveIcon />}
-                            >
-                                Save
-      </Button>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Button
-                                variant="contained"
-                                size="large"
-                                color="secondary"
-                                className={classes.button}
-                                startIcon={<DeleteIcon />}
-                            >
-                                Delete
-      </Button>
-                        </Grid> */}
-
                     </Grid>
                 </div>
             </Container>
-        </React.Fragment>
+        </TabPanel>
     )
 }
 

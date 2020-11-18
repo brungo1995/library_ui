@@ -5,25 +5,31 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import SideNav from "./components/SideNav";
 import TopNav from "./components/TopNav";
 import Category from "./Views/Category/CategoryRouter"
+import Container from '@material-ui/core/Container';
+import LeftSideNav from "./components/LeftSideNav"
+import { useStyles } from "./styles/styles"
+import AppContainer from "./AppContainer"
+
+
+// if(!username){
+//   return <Login />
+// }
+
 
 setConfig({
     reloadHooks: false,
 });
 
 function App() {
+    const classes = useStyles();
 
     return (
         <Router>
-            <div id="wrapper">
-                <Route path={"/"} component={SideNav} />
-                <div id="page-wrapper" className="gray-bg">
-                    <TopNav />
-                    <Route path="/category" component={Category} />
-                    <Route path="/author" component={Category} />
-                    <Route path="/book" component={Category} />
-                    {/* <h1>Hi from React! Welcome to !sada</h1> */}
-                </div>
-            </div>
+            {/* ADD PROVIDER */}
+            <Container className={classes.root}>
+                <Route path={"/"} component={LeftSideNav} />
+                <Route path={"/"} component={AppContainer} />
+            </Container>
         </Router>
     );
 }

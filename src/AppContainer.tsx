@@ -28,13 +28,13 @@ function AppContainer() {
 
   return (
     <>
-      <Container className={classes.root}>
-        <LeftSideNav />
-        <Container className={classes.content}>
-          <div className={classes.toolbar} />
-          {/* ADD ROUTE HERE */}
-          <ContainerComponent />
-          {/* <Typography paragraph>
+      {/* <Container className={classes.root}>
+        <LeftSideNav /> */}
+      <Container className={classes.content}>
+        <div className={classes.toolbar} />
+        {/* ADD ROUTE HERE */}
+        <ContainerComponent />
+        {/* <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
             ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
             facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
@@ -46,10 +46,10 @@ function AppContainer() {
             arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
             donec massa sapien faucibus et molestie ac.
         </Typography> */}
-        </Container>
-
-
       </Container>
+
+
+      {/* </Container> */}
       {/* <App /> */}
     </>
   )
