@@ -23,33 +23,3 @@ export interface ISearchCategory {
     limit: number;
     offset: number;
 }
-
-// {
-//     "status": "success",
-//     "data": [
-//       {
-//         "category_id": 4,
-//         "name": "Science",
-//         "description": "this is Science",
-//         "operation_by_user": "EDVALDO"
-//       },
-//       {
-//         "category_id": 3,
-//         "name": "Fiction",
-//         "description": "this is Fiction",
-//         "operation_by_user": "EDVALDO"
-//       },
-//       {
-//         "category_id": 2,
-//         "name": "Drama",
-//         "description": "this is Drama",
-//         "operation_by_user": "EDVALDO"
-//       },
-//       {
-//         "category_id": 1,
-//         "name": "Ation",
-//         "description": "this is action",
-//         "operation_by_user": "EDVALDO"
-//       }
-//     ]
-//   }

@@ -9,7 +9,8 @@ import { useStyles } from "../../../styles/styles"
 import { Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-
+import useVM from './SignUpVM'
+import { useHistory, useParams } from "react-router-dom";
 
 
 const useStyles1 = makeStyles((theme: Theme) =>
@@ -32,7 +33,15 @@ setConfig({
 function AppContainer() {
     const classes = useStyles();
     const classes1 = useStyles1();
+    const history = useHistory();
+    const params = useParams();
 
+    const { isLoading,
+        item,
+        onCancel,
+        handleInputChange,
+        onSignUp,
+        isValidUser } = useVM({ history });
 
     // if(!username){
     //   return <Login />
@@ -56,7 +65,7 @@ function AppContainer() {
                                     id="outlined-required"
                                     label="Full Name"
                                     name="name"
-                                    // onChange={handleInputChange}
+                                    onChange={handleInputChange}
                                     // defaultValue=""
                                     // value={item.name || ""}
                                     variant="outlined"
@@ -70,7 +79,7 @@ function AppContainer() {
                                     id="outlined-required"
                                     label="Username"
                                     name="username"
-                                    // onChange={handleInputChange}
+                                    onChange={handleInputChange}
                                     // defaultValue=""
                                     // value={item.name || ""}
                                     variant="outlined"
@@ -84,7 +93,7 @@ function AppContainer() {
                                     label="Email"
                                     name="email"
                                     type="email"
-                                    // onChange={handleInputChange}
+                                    onChange={handleInputChange}
                                     // defaultValue=""
                                     // value={item.name || ""}
                                     variant="outlined"
@@ -94,8 +103,10 @@ function AppContainer() {
                                 <TextField
                                     style={{ width: "300px" }}
                                     id="outlined-password-input"
+                                    name="password"
                                     label="Password"
                                     type="password"
+                                    onChange={handleInputChange}
                                     autoComplete="current-password"
                                     variant="outlined"
                                 />
@@ -103,11 +114,12 @@ function AppContainer() {
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
                                 {/* <Paper className={classes1.paper}>xs=6 sm=3</Paper> */}
                                 <Button
-                                    style={{ margin: "10px" }}
+                                    disabled={!isValidUser()}
+                                    style={{ margin: "10px 70px 10px 10px" }}
                                     variant="contained"
                                     color="primary"
                                     size="large"
-                                // onClick={() => onEdit()}
+                                    onClick={onSignUp}
                                 // className={classes.button}
                                 // startIcon={<EditIcon />}
                                 >Sign Up
