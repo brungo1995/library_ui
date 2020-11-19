@@ -10,8 +10,7 @@ import LeftSideNav from "./components/LeftSideNav"
 import { useStyles } from "./styles/styles"
 import AppContainer from "./AppContainer"
 import { AlertProvider } from './context_providers/alert_context';
-
-
+import SignUpView from "./Views/User/SignUp/SignUpView"
 // if(!username){
 //   return <Login />
 // }
@@ -21,8 +20,14 @@ setConfig({
     reloadHooks: false,
 });
 
+
+
 function App() {
     const classes = useStyles();
+
+    if (true) {
+        return <SignUpView />
+    }
 
     return (
         <Router>
