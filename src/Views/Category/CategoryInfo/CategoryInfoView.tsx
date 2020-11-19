@@ -56,7 +56,6 @@ function CategoryInfoView({ value }): JSX.Element {
         history.push(`/category/${category_id}`);
     }
 
-
     return (
         <TabPanel value={value} index={1}>
             <CssBaseline />

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Spinner } from "reactstrap";
 // import { ICategory } from "../../../Domain/Entities/Category";
 // import { findParams } from "../../../utilities/utilities";
 // import SearchBar from "../../../components/SearchBar";
@@ -27,7 +27,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TabPanel from "../../../components/TabPanel";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+import useVM from "./CategoryListVM";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
         },
 
+        spinner: {
+            display: 'flex',
+            '& > * + *': {
+                marginLeft: theme.spacing(2),
+            },
+        },
         search: {
             position: 'relative',
             borderRadius: theme.shape.borderRadius,
@@ -113,14 +121,20 @@ function createData(name: string, calories: number, fat: number, carbs: number, 
 function CategoryListView({ value }) {
     const classes = useStyles();
     const history = useHistory();
+    const location = useLocation();
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const { totalNumberOfRows, isLoading, items, searchText, page, offset, rowsPerPage,
+        setRowsPerPage, setOffset, setPage, loadCategories, onSelect } = useVM({
+            history, location,
+        });
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+        // console.log("TEST")
         setPage(newPage);
+        loadCategories({ page: newPage, rowsPerPage: rowsPerPage });
     };
 
 
@@ -129,11 +143,12 @@ function CategoryListView({ value }) {
     ) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
+        loadCategories({ page: page, rowsPerPage: parseInt(event.target.value, 10) })
     };
 
     const handleClick = (id) => {
         history.push(`/category/${id}/info`)
-        console.log(id)
+        // console.log(id)
     };
 
     function TablePaginationActions(props: TablePaginationActionsProps) {
@@ -149,19 +164,8 @@ function CategoryListView({ value }) {
             onChangePage(event, page + 1);
         };
 
-        const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-        };
-
         return (
             <Container >
-                {/* <IconButton
-                    onClick={handleFirstPageButtonClick}
-                    disabled={page === 0}
-                    aria-label="first page"
-                >
-                    {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-                </IconButton> */}
                 <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
                     {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
                 </IconButton>
@@ -172,17 +176,13 @@ function CategoryListView({ value }) {
                 >
                     {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                 </IconButton>
-                {/* <IconButton
-                    onClick={handleLastPageButtonClick}
-                    disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                    aria-label="last page"
-                >
-                    {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-                </IconButton> */}
             </Container>
         );
     }
 
+    React.useEffect(() => {
+        loadCategories({});
+    }, []);
 
     return (
         <>
@@ -217,48 +217,52 @@ function CategoryListView({ value }) {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {(rowsPerPage > 0
-                                                ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                : data
-                                            ).map((row, idx) => (
-                                                <TableRow key={idx}
-                                                    onClick={() => handleClick(row.category_id)}
-                                                // onClick={() => handleClick(row.id)}
-                                                >
-                                                    <TableCell component="th" scope="row">
-                                                        {row.name}
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        {row.description}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
+
+                                            {
+                                                isLoading ?
+                                                    (<tr><td colSpan={2}><Spinner /></td></tr>)
+                                                    :
+                                                    // (
+                                                    //     rowsPerPage > 0
+                                                    //         ? items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                    //         : items
+                                                    // )
+                                                    items
+                                                        .map((row, idx) => (
+                                                            <TableRow key={idx}
+                                                                onClick={() => onSelect(row.category_id)}
+                                                            >
+                                                                <TableCell component="td" scope="row">
+                                                                    {row.name}
+                                                                </TableCell>
+                                                                <TableCell align="left">
+                                                                    {row.description}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        ))
+                                            }
+
                                             {emptyRows > 0 && (
                                                 <TableRow style={{ height: 53 * emptyRows }}>
                                                     <TableCell colSpan={6} />
                                                 </TableRow>
                                             )}
-                                            {/* {data.map((row, i) => (
-                                            <TableRow key={i}>
-                                                <TableCell component="th" scope="row">
-                                                    {row.name}
-                                                </TableCell>
-                                                <TableCell align="right">{row.description}</TableCell>
-                                            </TableRow>
-                                        ))} */}
                                         </TableBody>
                                         <TableFooter>
                                             <TableRow>
                                                 <TablePagination
+                                                    // rowsPerPageOptions={[]}
                                                     rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                                     colSpan={6}
-                                                    count={data.length}
+                                                    // count={data.length}
+                                                    count={totalNumberOfRows}
                                                     rowsPerPage={rowsPerPage}
                                                     page={page}
                                                     SelectProps={{
                                                         inputProps: { 'aria-label': 'rows per page' },
                                                         native: true,
                                                     }}
+                                                    onLoad={() => console.log('loadind data')}
                                                     onChangePage={handleChangePage}
                                                     onChangeRowsPerPage={handleChangeRowsPerPage}
                                                     ActionsComponent={TablePaginationActions}
@@ -367,11 +371,12 @@ const data = [
         "name": "Action",
         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
         "operation_by_user": "Domingos"
-    },
-    {
-        "category_id": 14,
-        "name": "Action",
-        "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-        "operation_by_user": "Domingos"
     }
+    // ,
+    // {
+    //     "category_id": 14,
+    //     "name": "Action",
+    //     "description": "A film with a fast-moving plot , usually containing scenes of violence ",
+    //     "operation_by_user": "Domingos"
+    // }
 ]
