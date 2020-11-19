@@ -45,9 +45,6 @@ function CategoryEditView({ value }): JSX.Element {
         history,
     });
 
-    // function onCancel() {
-    //     history.goBack();
-    // }
 
     React.useEffect(() => {
         if (!isNewCategory) {
@@ -67,7 +64,6 @@ function CategoryEditView({ value }): JSX.Element {
                     // justify="center"
                     // alignItems="center"
                     >
-                        {/* <form className={classes.root} noValidate autoComplete="off"> */}
                         <Grid item xs={6}>
                             <TextField
                                 fullWidth
@@ -96,7 +92,6 @@ function CategoryEditView({ value }): JSX.Element {
                             />
 
                         </Grid>
-                        {/* </form> */}
                         <Grid item xs={6}>
                             <Grid container spacing={1}
                                 justify="center"
@@ -117,7 +112,6 @@ function CategoryEditView({ value }): JSX.Element {
                                     color="secondary"
                                     className={classes.button}
                                     onClick={() => onCancel()}
-                                // startIcon={<DeleteIcon />}
                                 >
                                     Cancel
                                 </Button>

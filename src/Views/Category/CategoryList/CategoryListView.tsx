@@ -30,12 +30,17 @@ import TabPanel from "../../../components/TabPanel";
 import { useHistory, useLocation } from "react-router-dom";
 import useVM from "./CategoryListVM";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             flexGrow: 1,
+        },
+
+        button: {
+            margin: theme.spacing(1),
         },
 
         spinner: {
@@ -112,11 +117,6 @@ const useStyles1 = makeStyles((theme: Theme) =>
         },
     }),
 );
-// interface props extends RouteComponentProps<any, any, any> { }
-// function CategoryListView({ history, match, location }: props): JSX.Element {
-function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
-    return { name, calories, fat, carbs, protein };
-}
 
 function CategoryListView({ value }) {
     const classes = useStyles();
@@ -146,8 +146,8 @@ function CategoryListView({ value }) {
         loadCategories({ page: page, rowsPerPage: parseInt(event.target.value, 10) })
     };
 
-    const handleClick = (id) => {
-        history.push(`/category/${id}/info`)
+    function onCreate() {
+        history.push(`/category/new`)
         // console.log(id)
     };
 
@@ -206,6 +206,20 @@ function CategoryListView({ value }) {
                                     onChange={(e) => setSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
+                            </Container>
+                        </Grid>
+                        <Grid item xs={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Container className={classes.search}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="small"
+                                    className={classes.button}
+                                    startIcon={<AddIcon />}
+                                    onClick={onCreate}
+                                >
+                                    Create
+                                </Button>
                             </Container>
                         </Grid>
                         <Grid item xs={12}>

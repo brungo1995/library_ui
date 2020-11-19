@@ -2,10 +2,12 @@ import * as utilities from '../../utilities/utilities';
 import { ICategory, ISearchCategory, IGetCategoriesResponse } from '../../Domain/Entities/Category';
 
 const CategoryAPI = {
-    async createCategory(aategory: ICategory): Promise<{ category: ICategory; error: Error; }> {
+    async createCategory(category: ICategory): Promise<{ category: ICategory; error: Error; }> {
         try {
-            let response = await utilities.postApiCall(`/aategory`, aategory);
-            return { category: response.data, error: null };
+            let response = await utilities.postApiCall(`category`, category);
+            // console.log("CREATE API RESPONSE: =>", response.data.data)
+            // debugger
+            return { category: response.data.data, error: null };
         } catch (error) {
             return { category: null, error: new Error(`Could not create Category`) }
         }

@@ -25,9 +25,10 @@ function CategoryDetailVM({ category_id, history }) {
             Alert.error(error.message);
             return;
         }
+        // console.log("CREATED CATEGORY: => ", category)
 
         Alert.info("Category Created");
-        history.replace(`/category/${category_id}/info`, { isReloadCategoryList: true });
+        history.replace(`/category/${category.category_id}/info`, { isReloadCategoryList: true });
     }
 
     async function loadCategory(): Promise<void> {
@@ -39,7 +40,7 @@ function CategoryDetailVM({ category_id, history }) {
             return;
         }
 
-        console.log(category)
+        // console.log(category)
         setItem(category);
         setMasterItem(category)
     }
@@ -58,7 +59,7 @@ function CategoryDetailVM({ category_id, history }) {
 
     function isItemEdited() {
         let isEdited = !_.isEqual(masterItem, item);
-        console.log("IS EDITED: => ", isEdited)
+        // console.log("IS EDITED: => ", isEdited)
         return isEdited
     }
 
