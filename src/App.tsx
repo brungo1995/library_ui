@@ -11,6 +11,7 @@ import { useStyles } from "./styles/styles"
 import AppContainer from "./AppContainer"
 import { AlertProvider } from './context_providers/alert_context';
 import SignUpView from "./Views/User/SignUp/SignUpView"
+import LoginView from "./Views/User/Login/LoginView"
 // if(!username){
 //   return <Login />
 // }
@@ -24,6 +25,10 @@ setConfig({
 
 function App() {
     const classes = useStyles();
+
+    if (true) {
+        return <LoginView />
+    }
 
     if (true) {
         return <SignUpView />

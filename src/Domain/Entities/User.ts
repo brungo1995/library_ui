@@ -9,6 +9,14 @@ export interface IUser {
     token?: string;
 }
 
+export interface IUserSignIn {
+    user_id?: string;
+    username: string;
+    email?: string;
+    password: string;
+    token?: string;
+}
+
 // {
 //     "status": "success",
 //     "data": {

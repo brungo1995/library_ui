@@ -9,7 +9,7 @@ import { useStyles } from "../../../styles/styles"
 import { Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import useVM from './SignUpVM'
+import useVM from './LoginVM'
 import { useHistory, useParams } from "react-router-dom";
 
 
@@ -38,15 +38,10 @@ function AppContainer() {
 
     const { isLoading,
         item,
-        onCancel,
+        onClear,
         handleInputChange,
-        onSignUp,
+        onLogin,
         isValidUser } = useVM({ history });
-
-    // if(!username){
-    //   return <Login />
-    // }
-
 
     return (
         <>
@@ -56,22 +51,8 @@ function AppContainer() {
                     <div className={classes.root}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-                                <Typography paragraph style={{ fontSize: "30px" }}>Sign Up</Typography>
+                                <Typography paragraph style={{ fontSize: "30px" }}>Sign in</Typography>
                             </Grid>
-                            <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-                                <TextField
-                                    style={{ width: "300px" }}
-                                    required
-                                    id="outlined-required"
-                                    label="Full Name"
-                                    name="name"
-                                    onChange={handleInputChange}
-                                    // defaultValue=""
-                                    value={item.name || ""}
-                                    variant="outlined"
-                                />
-                            </Grid>
-                            {/* user full name, a username, a password , email*/}
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
                                 <TextField
                                     style={{ width: "300px" }}
@@ -81,21 +62,7 @@ function AppContainer() {
                                     name="username"
                                     onChange={handleInputChange}
                                     // defaultValue=""
-                                    value={item.name || ""}
-                                    variant="outlined"
-                                />
-                            </Grid>
-                            <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
-                                <TextField
-                                    style={{ width: "300px" }}
-                                    required
-                                    id="outlined-required"
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    onChange={handleInputChange}
-                                    // defaultValue=""
-                                    value={item.name || ""}
+                                    value={item.username || ""}
                                     variant="outlined"
                                 />
                             </Grid>
@@ -108,8 +75,8 @@ function AppContainer() {
                                     type="password"
                                     onChange={handleInputChange}
                                     autoComplete="current-password"
-                                    variant="outlined"
                                     value={item.password || ""}
+                                    variant="outlined"
                                 />
                             </Grid>
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
@@ -120,32 +87,22 @@ function AppContainer() {
                                     variant="contained"
                                     color="primary"
                                     size="large"
-                                    onClick={onSignUp}
+                                    onClick={onLogin}
                                 // className={classes.button}
-                                // startIcon={<EditIcon />}
-                                >Sign Up
+                                >Login
                             </Button>
                                 <Button
                                     style={{ margin: "10px" }}
                                     variant="contained"
                                     size="large"
                                     color="secondary"
-                                // onClick={onDelete}
+                                    onClick={onClear}
                                 // className={classes.button}
-                                // startIcon={<DeleteIcon />}
                                 >
-                                    Cancel
+                                    Clear
                             </Button>
                             </Grid>
-                            {/* <Grid item xs={6} sm={3}>
-                                <Paper className={classes1.paper}>xs=6 sm=3</Paper>
-                            </Grid> */}
-                            {/* <Grid item xs={6} sm={3}>
-                                <Paper className={classes1.paper}>xs=6 sm=3</Paper>
-                            </Grid> */}
-                            {/* <Grid item xs={6} sm={3}>
-                                <Paper className={classes1.paper}>xs=6 sm=3</Paper>
-                            </Grid> */}
+
                         </Grid>
                     </div>
                 </Container>
