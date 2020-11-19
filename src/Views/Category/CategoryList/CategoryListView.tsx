@@ -125,7 +125,7 @@ function CategoryListView({ value }) {
 
 
     const { totalNumberOfRows, isLoading, items, searchText, page, offset, rowsPerPage,
-        setRowsPerPage, setOffset, setPage, loadCategories, onSelect } = useVM({
+        setRowsPerPage, setOffset, setPage, loadCategories, onSelect, setSearchText } = useVM({
             history, location,
         });
 
@@ -201,6 +201,14 @@ function CategoryListView({ value }) {
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            loadCategories({ page: page, rowsPerPage: rowsPerPage })
+                                        }
+                                        // console.log(e.key)
+                                        // console.log(e.keyCode)
+                                    }}
+                                    onChange={(e) => setSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                             </Container>

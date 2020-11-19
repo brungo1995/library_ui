@@ -31,6 +31,7 @@ export default function CategoryListVM({ history, location }) {
 
     console.log(`offset : => `, fromRowNumber)
     console.log(`Rows per Page or Limit : => `, rowsPerPage)
+    console.log(`Name : => `, searchText)
 
     let { categories, error, count } = await categoryRepository.loadCategories({
       name: searchText,
@@ -42,6 +43,12 @@ export default function CategoryListVM({ history, location }) {
     if (error) {
       // Alert.error(error.message);
       console.log(error)
+      return;
+    }
+
+    if (categories.length === 0) {
+      setRowsPerPage(5);
+      setPage(0);
       return;
     }
 
@@ -77,6 +84,7 @@ export default function CategoryListVM({ history, location }) {
     page,
     offset,
     rowsPerPage,
+    setSearchText,
     setRowsPerPage,
     setOffset,
     setPage,
