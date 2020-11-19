@@ -12,34 +12,6 @@ import Container from '@material-ui/core/Container';
 import { Route } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
-// interface TabPanelProps {
-//     children?: React.ReactNode;
-//     index: any;
-//     value: any;
-// }
-
-// function TabPanel(props: TabPanelProps) {
-//     const { children, value, index, ...other } = props;
-
-//     return (
-//         <div
-//             role="tabpanel"
-//             hidden={value !== index}
-//             id={`simple-tabpanel-${index}`}
-//             aria-labelledby={`simple-tab-${index}`}
-//             {...other}
-//         >
-//             {value === index && (
-//                 <Container>
-//                     <Box p={3}>
-//                         <Typography component="span">{children}</Typography>
-//                     </Box>
-//                 </Container>
-//             )}
-//         </div>
-//     );
-// }
-
 function a11yProps(index: any) {
     return {
         id: `simple-tab-${index}`,
@@ -66,9 +38,6 @@ export default function CategoryRouter() {
 
     function findTab() {
         let url = history.location.pathname.split('/');
-        // console.log(url)
-        // console.log(history.location.pathname)
-        // console.log(history.location.pathname.length);
         let info = url[3];
         let id = url[2]
 
@@ -79,7 +48,6 @@ export default function CategoryRouter() {
         if (!info && id) {
             return 2
         }
-        // setValue(1)
         return 0
     }
 
@@ -95,16 +63,6 @@ export default function CategoryRouter() {
             <Route exact path="/category" component={() => <CategoryListView value={0} />} />
             <Route exact path="/category/:category_id/info" component={() => <CategoryInfoView value={1} />} />
             <Route exact path="/category/:category_id" component={() => <CategoryEditView value={2} />} />
-            {/* <Route path="/category" component={CategoryRouter} /> */}
-            {/* <TabPanel value={value} index={0}>
-                <CategoryListView />
-            </TabPanel> */}
-            {/* <TabPanel value={value} index={1}>
-                <CategoryInfoView />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <CategoryEditView />
-            </TabPanel>  */}
         </Container>
     );
 }

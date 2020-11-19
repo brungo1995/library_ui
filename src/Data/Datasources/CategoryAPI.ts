@@ -14,7 +14,8 @@ const CategoryAPI = {
     async loadCategory(categoryId: string): Promise<{ category: ICategory; error: Error; }> {
         try {
             let response = await utilities.getApiCall(`category/${categoryId}`);
-            return { category: response.data, error: null };
+            // console.log(response.data)
+            return { category: response.data.data, error: null };
         } catch (error) {
             return { category: null, error: new Error(`Could not load Category`) }
         }
@@ -48,9 +49,10 @@ const CategoryAPI = {
         }
     },
 
-    async updateCategory(category: ICategory, categoryId: string): Promise<{ category: ICategory; error: Error; }> {
+    async updateCategory(category: ICategory): Promise<{ category: ICategory; error: Error; }> {
         try {
-            let response = await utilities.putApiCall(`category/${categoryId}`, category);
+            let url = `category/${category.category_id}`
+            let response = await utilities.putApiCall(url, category);
             return { category: response.data, error: null };
         } catch (error) {
             return { category: null, error: new Error(`Could not update Category`) }

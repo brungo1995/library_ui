@@ -15,8 +15,8 @@ export default class CategoryRepository implements ICategoryUseCases {
     async removeCategory(categoryId: string): Promise<{ error: Error; }> {
         return await CategoryAPI.removeCategory(categoryId);
     }
-    async updateCategory(category: ICategory, categoryId: string): Promise<{ category: ICategory; error: Error; }> {
-        return await CategoryAPI.updateCategory(category, categoryId);
+    async updateCategory(category: ICategory): Promise<{ category: ICategory; error: Error; }> {
+        return await CategoryAPI.updateCategory(category);
     }
 
 }

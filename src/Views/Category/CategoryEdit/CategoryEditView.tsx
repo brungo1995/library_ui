@@ -15,6 +15,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import TabPanel from "../../../components/TabPanel";
 import { useHistory, useParams } from "react-router-dom";
+import useVM from "./CategoryEditVM";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,10 +37,23 @@ function CategoryEditView({ value }): JSX.Element {
     const classes = useStyles();
     const history = useHistory();
     const params = useParams();
+    let category_id = params['category_id'];
+    const isNewCategory = category_id === "new";
 
-    function onCancel() {
-        history.goBack();
-    }
+    const { isLoading, item, CategoryValidationSchema, loadCategory, onCancel, handleInputChange, onSave } = useVM({
+        category_id: category_id,
+        history,
+    });
+
+    // function onCancel() {
+    //     history.goBack();
+    // }
+
+    React.useEffect(() => {
+        if (!isNewCategory) {
+            loadCategory();
+        }
+    }, [category_id]);
 
     return (
         <TabPanel value={value} index={2}>
@@ -60,7 +74,10 @@ function CategoryEditView({ value }): JSX.Element {
                                 required
                                 id="outlined-required"
                                 label="Name"
-                                defaultValue=""
+                                name="name"
+                                onChange={handleInputChange}
+                                // defaultValue=""
+                                value={item.name || ""}
                                 variant="outlined"
                             />
 
@@ -71,7 +88,10 @@ function CategoryEditView({ value }): JSX.Element {
                                 label="Description"
                                 multiline
                                 rows={6}
-                                defaultValue=""
+                                name="description"
+                                // defaultValue=""
+                                onChange={handleInputChange}
+                                value={item.description || ""}
                                 variant="outlined"
                             />
 
@@ -87,6 +107,7 @@ function CategoryEditView({ value }): JSX.Element {
                                     size="large"
                                     className={classes.button}
                                     startIcon={<SaveIcon />}
+                                    onClick={onSave}
                                 >
                                     Save
                                 </Button>

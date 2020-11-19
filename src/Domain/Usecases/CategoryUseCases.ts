@@ -9,5 +9,5 @@ export default interface ICategoryUseCases {
 
     removeCategory(categoryId: string): Promise<{ error: Error }>;
 
-    updateCategory(category: ICategory, categoryId: string): Promise<{ category: ICategory; error: Error }>;
+    updateCategory(category: ICategory): Promise<{ category: ICategory; error: Error }>;
 }

@@ -192,9 +192,6 @@ function CategoryListView({ value }) {
                     <Grid container spacing={3}>
                         <Grid item xs={8}>
                             <Container className={classes.search}>
-                                {/* <Container className={classes.searchIcon}>
-                                <SearchIcon />
-                            </Container> */}
                                 <InputBase
                                     placeholder="Search by name …"
                                     classes={{
@@ -205,8 +202,6 @@ function CategoryListView({ value }) {
                                         if (e.key === 'Enter') {
                                             loadCategories({ page: page, rowsPerPage: rowsPerPage })
                                         }
-                                        // console.log(e.key)
-                                        // console.log(e.keyCode)
                                     }}
                                     onChange={(e) => setSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}

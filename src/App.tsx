@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import LeftSideNav from "./components/LeftSideNav"
 import { useStyles } from "./styles/styles"
 import AppContainer from "./AppContainer"
+import { AlertProvider } from './context_providers/alert_context';
 
 
 // if(!username){
@@ -26,10 +27,12 @@ function App() {
     return (
         <Router>
             {/* ADD PROVIDER */}
-            <Container className={classes.root}>
-                <Route path={"/"} component={LeftSideNav} />
-                <Route path={"/"} component={AppContainer} />
-            </Container>
+            <AlertProvider>
+                <Container className={classes.root}>
+                    <Route path={"/"} component={LeftSideNav} />
+                    <Route path={"/"} component={AppContainer} />
+                </Container>
+            </AlertProvider>
         </Router>
     );
 }
