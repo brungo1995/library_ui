@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom';
 import AppContainer from "./AppContainer";
 import App from "./App";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { AlertProvider } from './context_providers/alert_context';
+import { AccountProvider, UserContext } from './context_providers/user_provider';
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>
+  <>
+    <AccountProvider>
+      <AlertProvider>
+        <Router>
+          <App />
+        </Router>
+      </AlertProvider>
+    </AccountProvider>
+  </>
   ,
   document.getElementById("root")
 );

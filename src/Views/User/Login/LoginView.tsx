@@ -10,7 +10,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import useVM from './LoginVM'
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 
 
 const useStyles1 = makeStyles((theme: Theme) =>
@@ -38,6 +38,7 @@ function AppContainer() {
 
     const { isLoading,
         item,
+        wrongEmailOrPassword,
         onClear,
         handleInputChange,
         onLogin,
@@ -79,11 +80,18 @@ function AppContainer() {
                                     variant="outlined"
                                 />
                             </Grid>
+                            <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>{
+                                wrongEmailOrPassword ? <Typography style={{ color: "red" }}>Wrong Password or Username</Typography> : null
+                            }
+
+
+                            </Grid>
+
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
                                 {/* <Paper className={classes1.paper}>xs=6 sm=3</Paper> */}
                                 <Button
                                     disabled={!isValidUser()}
-                                    style={{ margin: "10px 70px 10px 10px" }}
+                                    style={{ margin: "0px 70px 10px 10px" }}
                                     variant="contained"
                                     color="primary"
                                     size="large"
@@ -92,7 +100,7 @@ function AppContainer() {
                                 >Login
                             </Button>
                                 <Button
-                                    style={{ margin: "10px" }}
+                                    style={{ margin: "0px 10px 10px 10px" }}
                                     variant="contained"
                                     size="large"
                                     color="secondary"
@@ -102,7 +110,9 @@ function AppContainer() {
                                     Clear
                             </Button>
                             </Grid>
-
+                            <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>No Account?
+                               <Link to={"/signup"} style={{ marginLeft: "10px", color: "#1B87EF", textDecoration: "none" }}> Sign Up</Link>
+                            </Grid>
                         </Grid>
                     </div>
                 </Container>

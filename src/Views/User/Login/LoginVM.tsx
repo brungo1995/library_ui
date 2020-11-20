@@ -1,6 +1,7 @@
 import React from "react";
 import { IUserSignIn } from "../../../Domain/Entities/User";
 import { AlertContext } from "../../../context_providers/alert_context";
+import { UserContext } from "../../../context_providers/user_provider";
 import UserRepository from "../../../Data/Repositories/UserRepository";
 import _ from "lodash";
 
@@ -12,7 +13,9 @@ function LoginVM({ history }) {
     const [item, setItem] = React.useState<IUserSignIn>(initialValue);
     const [masterItem, setMasterItem] = React.useState<IUserSignIn>(initialValue);
     const [isLoading, setLoading] = React.useState<boolean>(false);
+    const [wrongEmailOrPassword, setWrongEmailOrPassword] = React.useState<boolean>(false);
     const Alert = React.useContext(AlertContext);
+    const User = React.useContext(UserContext);
     const loginRepository = new UserRepository();
 
     // React.useEffect(() => {
@@ -23,16 +26,22 @@ function LoginVM({ history }) {
         const { user, error } = await loginRepository.signIn(item);
         // setSubmitting(false);
         if (error) {
+            setWrongEmailOrPassword(true)
             console.log(error)
             // Alert.error(error.message);
             return;
         }
         console.log("LOGIN USER : => ", user)
 
-        // Alert.info("User Created");
-        // add token to local storage 
-        //add user details to auth context
-        history.replace(`/login`);
+        User.setUser(user)
+
+        setWrongEmailOrPassword(false)
+
+        if (user && user.token) {
+            //add user details to auth context
+            history.replace(`/category`);
+        }
+
     }
 
     function onClear() {
@@ -61,6 +70,7 @@ function LoginVM({ history }) {
     return {
         isLoading,
         item,
+        wrongEmailOrPassword,
         onClear,
         handleInputChange,
         onLogin,

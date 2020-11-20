@@ -10,7 +10,7 @@ import { Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import useVM from './SignUpVM'
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 
 
 const useStyles1 = makeStyles((theme: Theme) =>
@@ -42,11 +42,6 @@ function AppContainer() {
         handleInputChange,
         onSignUp,
         isValidUser } = useVM({ history });
-
-    // if(!username){
-    //   return <Login />
-    // }
-
 
     return (
         <>
@@ -81,7 +76,7 @@ function AppContainer() {
                                     name="username"
                                     onChange={handleInputChange}
                                     // defaultValue=""
-                                    value={item.name || ""}
+                                    value={item.username || ""}
                                     variant="outlined"
                                 />
                             </Grid>
@@ -95,7 +90,7 @@ function AppContainer() {
                                     type="email"
                                     onChange={handleInputChange}
                                     // defaultValue=""
-                                    value={item.name || ""}
+                                    value={item.email || ""}
                                     variant="outlined"
                                 />
                             </Grid>
@@ -130,19 +125,16 @@ function AppContainer() {
                                     variant="contained"
                                     size="large"
                                     color="secondary"
-                                // onClick={onDelete}
+                                    onClick={() => history.push("/signin")}
                                 // className={classes.button}
                                 // startIcon={<DeleteIcon />}
                                 >
                                     Cancel
                             </Button>
                             </Grid>
-                            {/* <Grid item xs={6} sm={3}>
-                                <Paper className={classes1.paper}>xs=6 sm=3</Paper>
-                            </Grid> */}
-                            {/* <Grid item xs={6} sm={3}>
-                                <Paper className={classes1.paper}>xs=6 sm=3</Paper>
-                            </Grid> */}
+                            <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>Already have an account?
+                               <Link to={"/signin"} style={{ marginLeft: "10px", color: "#1B87EF", textDecoration: "none" }}> Sign in</Link>
+                            </Grid>
                             {/* <Grid item xs={6} sm={3}>
                                 <Paper className={classes1.paper}>xs=6 sm=3</Paper>
                             </Grid> */}

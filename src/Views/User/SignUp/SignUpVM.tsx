@@ -32,7 +32,7 @@ function UserDetailVM({ history }) {
         console.log("SIGN UP USER : => ", user)
 
         // Alert.info("User Created");
-        history.replace(`/login`);
+        history.replace(`/signin`);
     }
 
     function onCancel() {
