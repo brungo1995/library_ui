@@ -11,6 +11,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import useVM from './SignUpVM'
 import { useHistory, useParams, Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const useStyles1 = makeStyles((theme: Theme) =>
@@ -30,6 +31,22 @@ setConfig({
     reloadHooks: false,
 });
 
+function notify() {
+    // return( <ToastContainer
+    //                 position="top-right"
+    //                 autoClose={5000}
+    //                 hideProgressBar={false}
+    //                 newestOnTop={false}
+    //                 closeOnClick
+    //                 rtl={false}
+    //                 pauseOnFocusLoss
+    //                 draggable
+    //                 pauseOnHover
+    //                 />njnfgfsnlgn
+    //                 <ToastContainer/>)
+
+}
+
 function AppContainer() {
     const classes = useStyles();
     const classes1 = useStyles1();
@@ -38,6 +55,7 @@ function AppContainer() {
 
     const { isLoading,
         item,
+        isError,
         onCancel,
         handleInputChange,
         onSignUp,
@@ -50,6 +68,7 @@ function AppContainer() {
                     <div className={classes.toolbar} />
                     <div className={classes.root}>
                         <Grid container spacing={3}>
+
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
                                 <Typography paragraph style={{ fontSize: "30px" }}>Sign Up</Typography>
                             </Grid>
@@ -106,6 +125,10 @@ function AppContainer() {
                                     variant="outlined"
                                     value={item.password || ""}
                                 />
+                            </Grid>
+                            <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>{
+                                isError ? <Typography style={{ color: "red" }}>{isError}</Typography> : null
+                            }
                             </Grid>
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
                                 {/* <Paper className={classes1.paper}>xs=6 sm=3</Paper> */}

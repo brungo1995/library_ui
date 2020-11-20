@@ -1,14 +1,16 @@
 import axios from "axios";
 import * as React from "react-router-dom";
+import AuthHeader from "../services/AuthHeader"
 
 const baseUrl = "http://localhost:5005/";
 const JWT_TOKEN = localStorage.getItem('token');
 
 const options = {
-    headers: {
-        'Authorization': `Bearer ${JWT_TOKEN}`,
-        'Content-Type': 'application/json'
-    },
+    headers: AuthHeader(),
+    // headers: {
+    //     'Authorization': `Bearer ${JWT_TOKEN}`,
+    //     'Content-Type': 'application/json'
+    // },
 };
 
 // Api call functions

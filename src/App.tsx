@@ -12,7 +12,10 @@ import AppContainer from "./AppContainer"
 // import { AlertProvider  } from './context_providers/alert_context';
 import { AccountProvider, UserContext } from './context_providers/user_provider';
 import SignUpView from "./Views/User/SignUp/SignUpView"
-import LoginView from "./Views/User/Login/LoginView"
+import LoginView from "./Views/User/Login/LoginView";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // if(!username){
 //   return <Login />
 // }

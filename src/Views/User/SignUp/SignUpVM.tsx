@@ -14,25 +14,23 @@ function UserDetailVM({ history }) {
     const [item, setItem] = React.useState<IUser>(initialValue);
     const [masterItem, setMasterItem] = React.useState<IUser>(initialValue);
     const [isLoading, setLoading] = React.useState<boolean>(false);
+    const [isError, setIsError] = React.useState<string>(null);
     const Alert = React.useContext(AlertContext);
     const loginRepository = new UserRepository();
 
-    // React.useEffect(() => {
 
-    // }, []);
 
     async function signUp() {
         const { user, error } = await loginRepository.signUp(item);
-        // setSubmitting(false);
         if (error) {
-            console.log(error)
-            // Alert.error(error.message);
+            setIsError(error.message)
             return;
+        } else {
+            setIsError(null)
+            // console.log("SIGN UP USER : => ", user)
+            history.replace(`/signin`);
         }
-        console.log("SIGN UP USER : => ", user)
 
-        // Alert.info("User Created");
-        history.replace(`/signin`);
     }
 
     function onCancel() {
@@ -40,7 +38,6 @@ function UserDetailVM({ history }) {
     }
 
     function onSignUp() {
-        console.log(isValidUser())
         if (isValidUser()) {
             signUp();
         }
@@ -66,6 +63,7 @@ function UserDetailVM({ history }) {
     return {
         isLoading,
         item,
+        isError,
         onCancel,
         handleInputChange,
         onSignUp,

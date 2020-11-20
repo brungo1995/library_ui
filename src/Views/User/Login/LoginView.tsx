@@ -83,8 +83,6 @@ function AppContainer() {
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>{
                                 wrongEmailOrPassword ? <Typography style={{ color: "red" }}>Wrong Password or Username</Typography> : null
                             }
-
-
                             </Grid>
 
                             <Grid item xs={12} style={{ display: "flex", justifyContent: "center" }}>
