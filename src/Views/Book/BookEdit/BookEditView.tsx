@@ -95,7 +95,6 @@ function BookEditView({ value }): JSX.Element {
                     >
                         <Grid item xs={6}>
                             <TextField
-                                // fullWidth
                                 required
                                 id="outlined-required"
                                 label="Book Name"
@@ -112,14 +111,11 @@ function BookEditView({ value }): JSX.Element {
                             >
 
                                 <Autocomplete
-                                    // name="author"
                                     limitTags={1}
                                     value={(authors || []).find(author => author.author_id == item.author) || null}
                                     id="multiple-limit-tags"
                                     options={authors}
                                     getOptionLabel={(option: IAuthor) => option.first_name}
-                                    // defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
-                                    // defaultValue={[]}
                                     onChange={(e, value: any) => {
                                         let event = {
                                             target: {
@@ -128,7 +124,6 @@ function BookEditView({ value }): JSX.Element {
                                             }
                                         }
                                         handleInputChange(event)
-                                        // console.log(value)
                                     }}
                                     renderInput={(params) => (
                                         <TextField {...params} style={{ marginTop: '0px' }}
@@ -142,7 +137,8 @@ function BookEditView({ value }): JSX.Element {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                disabled
+                                disabled={!isNewBook}
+                                // disabled = {isNewBook ? false:true}
                                 fullWidth
                                 required
                                 id="outlined-required"
@@ -160,20 +156,12 @@ function BookEditView({ value }): JSX.Element {
                             >
 
                                 <Autocomplete style={{ marginTop: '0px' }}
-
                                     multiple
                                     limitTags={2}
                                     id="multiple-limit-tags"
                                     options={categories}
                                     getOptionLabel={(option: ICategory) => option.name}
-                                    // defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
-                                    // value={(item.categories || []).map(id => {
-                                    //     return categories.filter(cat => cat.category_id === id)
-                                    // })}
                                     value={bookCategories}
-                                    // defaultValue={[]}
-                                    // getOptionDisabled={(options) => (item.categories.length === 2 ? true : false)}
-
                                     onChange={(e, values: any) => {
                                         let event = {
                                             target: {
@@ -209,12 +197,8 @@ function BookEditView({ value }): JSX.Element {
 
                     </Grid>
                     <Grid container spacing={3}
-                        // direction="column"
                         justify="center"
                         alignItems="center"
-
-                    // justify="center"
-                    // alignItems="center"
                     >
                         <Grid item xs={6}>
                             <Grid container spacing={1}
