@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row } from "reactstrap";
-import { ICategory } from "../../../Domain/Entities/Category";
+import { IAuthor } from "../../../Domain/Entities/Author";
 import { findParams } from "../../../utilities/utilities";
 import SearchBar from "../../../components/SearchBar";
 import { NavLink, RouteComponentProps } from "react-router-dom";
@@ -34,27 +34,27 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // interface props extends RouteComponentProps<any, any, any> { }
-// function CategoryInfoView({ history, match, location }: props): JSX.Element {
+// function AuthorInfoView({ history, match, location }: props): JSX.Element {
 
-function CategoryInfoView({ value }): JSX.Element {
+function AuthorInfoView({ value }): JSX.Element {
     const classes = useStyles();
     const history = useHistory();
     const params = useParams();
-    let category_id = params['category_id']
+    let author_id = params['author_id']
 
-    const { isLoading, item, loadCategory, onDelete, } = useVM({
-        category_id,
+    const { isLoading, item, loadAuthor, onDelete, } = useVM({
+        author_id,
         history: history,
     });
 
     function onEdit() {
-        let category_id = params['category_id']
-        history.push(`/category/${category_id}`);
+        let author_id = params['author_id']
+        history.push(`/author/${author_id}`);
     }
 
     React.useEffect(() => {
-        loadCategory();
-    }, [category_id]);
+        loadAuthor();
+    }, [author_id]);
 
     return (
         <TabPanel value={value} index={1}>
@@ -62,7 +62,7 @@ function CategoryInfoView({ value }): JSX.Element {
             <Container maxWidth="lg">
                 <div className={classes.root}>
                     {isLoading ? (
-                        <strong>Loading Category  <i className="fa fa-spinner fa-spin ml-1" />
+                        <strong>Loading Author  <i className="fa fa-spinner fa-spin ml-1" />
                         </strong>
                     ) : (
                             <Grid container spacing={3}>
@@ -72,7 +72,7 @@ function CategoryInfoView({ value }): JSX.Element {
                                         Name
                             </Typography>
                                     <Typography paragraph>
-                                        {item.name}
+                                        {item.first_name}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -80,7 +80,7 @@ function CategoryInfoView({ value }): JSX.Element {
                                         Description
                             </Typography>
                                     <Typography paragraph>
-                                        {item.description}
+                                        {item.last_name}
                                     </Typography>
 
                                 </Grid>
@@ -112,13 +112,4 @@ function CategoryInfoView({ value }): JSX.Element {
     )
 }
 
-export default CategoryInfoView;
-
-
-const data =
-{
-    "category_id": 1,
-    "name": "Action",
-    "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-    "operation_by_user": "Domingos"
-}
+export default AuthorInfoView;

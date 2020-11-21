@@ -1,49 +1,49 @@
 import React from "react";
-import { ICategory } from "../../../Domain/Entities/Category";
+import { IAuthor } from "../../../Domain/Entities/Author";
 import { AlertContext } from "../../../context_providers/alert_context";
-import CategoryRepository from "../../../Data/Repositories/CategoryRepository";
+import AuthorRepository from "../../../Data/Repositories/AuthorRepository";
 
-function CategoryInfoVM({ category_id, history }) {
+function AuthorInfoVM({ author_id, history }) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const [item, setItem] = React.useState<ICategory>({} as ICategory);
+    const [item, setItem] = React.useState<IAuthor>({} as IAuthor);
     const Alert = React.useContext(AlertContext);
-    const categoryRepository = new CategoryRepository();
+    const authorRepository = new AuthorRepository();
 
-    async function loadCategory(): Promise<void> {
+    async function loadAuthor(): Promise<void> {
         setIsLoading(true);
-        let { category, error } = await categoryRepository.loadCategory(category_id);
+        let { author, error } = await authorRepository.loadAuthor(author_id);
         setIsLoading(false);
 
-        // console.log(category)
+        // console.log(author)
 
         if (error) {
             Alert.error(error.message);
             return;
         }
 
-        setItem(category);
+        setItem(author);
     }
 
     function onDelete() {
-        Alert.confirm("Are you sure you would like to remove this Category?", removeCategory);
+        Alert.confirm("Are you sure you would like to remove this Author?", removeAuthor);
     }
 
-    async function removeCategory(cb): Promise<void> {
-        let { error } = await categoryRepository.removeCategory(category_id);
+    async function removeAuthor(cb): Promise<void> {
+        let { error } = await authorRepository.removeAuthor(author_id);
         if (error) {
             Alert.error(error.message);
             console.log(error)
             return;
         }
-        Alert.info("Category Removed");
+        Alert.info("Author Removed");
 
-        history.replace(`/category`, { isReloadCategoryList: true });
+        history.replace(`/author`, { isReloadAuthorList: true });
     }
 
     return {
-        isLoading, item, loadCategory, onDelete,
+        isLoading, item, loadAuthor, onDelete,
         // onEdit
     };
 }
 
-export default CategoryInfoVM;
+export default AuthorInfoVM;

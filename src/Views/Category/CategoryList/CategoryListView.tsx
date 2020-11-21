@@ -201,7 +201,9 @@ function CategoryListView({ value }) {
                                     }}
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') {
-                                            loadCategories({ page: page, rowsPerPage: rowsPerPage })
+                                            setPage(0)
+                                            loadCategories({ page: 0, rowsPerPage: rowsPerPage })
+                                            // loadCategories({ page: page, rowsPerPage: rowsPerPage })
                                         }
                                     }}
                                     onChange={(e) => setSearchText(e.target.value)}

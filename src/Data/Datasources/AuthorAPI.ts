@@ -17,7 +17,7 @@ const AuthorAPI = {
     async loadAuthor(authorId: string): Promise<{ author: IAuthor; error: any; }> {
         try {
             let response = await utilities.getApiCall(`author/${authorId}`);
-            console.log("LOAD AUTHOR API RESPONSE: =>", response.data.data)
+            // console.log("LOAD AUTHOR API RESPONSE: =>", response.data.data)
             // console.log(response.data)
             return { author: response.data.data, error: null };
         } catch (error) {
@@ -39,9 +39,9 @@ const AuthorAPI = {
             }
 
             query += `limit=${searchPayload.limit}&offset=${searchPayload.offset}`
-            console.log(query)
+            // console.log(query)
             let response = await utilities.getApiCall(query);
-            console.log("LOAD AUTHORS API RESPONSE: =>", response.data.data);
+            // console.log("LOAD AUTHORS API RESPONSE: =>", response.data.data);
 
             return { authors: response.data.data, count: parseInt(response.data.count), error: null };
         } catch (error) {
