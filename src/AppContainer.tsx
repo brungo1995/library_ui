@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import { Route } from 'react-router-dom';
 import CategoryRouter from "./Views/Category/CategoryRouter"
 import AuthorRouter from "./Views/Author/AuthorRouter"
+import BookRouter from "./Views/Book/BookRouter"
 import { MainDataProvider } from './context_providers/main_context';
 
 const useStyles2 = makeStyles((theme: Theme) =>
@@ -52,7 +53,7 @@ function AppContainer() {
                 {/* ROUTER WILL COME HERE */}
                 <Route path="/category" component={CategoryRouter} />
                 <Route path="/author" component={AuthorRouter} />
-                <Route path="/book" component={CategoryRouter} />
+                <Route path="/book" component={BookRouter} />
                 {/* <Tabs /> */}
               </Grid>
             </Grid>
