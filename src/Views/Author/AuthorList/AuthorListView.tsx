@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme, useTheme, fade } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
@@ -28,6 +27,7 @@ import useVM from "./AuthorListVM";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -79,11 +79,12 @@ const useStyles = makeStyles((theme: Theme) =>
             borderBottom: '1px solid black',
             borderWidth: '100%',
             // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+            paddingLeft: `0px`,
+            // paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('md')]: {
-                width: '50ch',
+                width: '20ch',
                 // width: '20ch',
             },
         },
@@ -199,8 +200,8 @@ function AuthorListView({ value }) {
                 <CssBaseline />
                 <Container maxWidth="lg" className={classes.root}>
                     <Grid container spacing={3}>
-                        <Grid item xs={4}>
-                            <Container className={classes.search}>
+                        <Grid item xs={4} >
+                            <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }}>
                                 <InputBase
                                     value={authorFirstNameSearchText}
                                     placeholder="First name …"
@@ -208,18 +209,18 @@ function AuthorListView({ value }) {
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            loadAuthors({ page: page, rowsPerPage: rowsPerPage })
-                                        }
-                                    }}
+                                    // onKeyDown={(e) => {
+                                    //     if (e.key === 'Enter') {
+                                    //         loadAuthors({ page: page, rowsPerPage: rowsPerPage })
+                                    //     }
+                                    // }}
                                     onChange={(e) => setAuthorFirstNameSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                             </Container>
                         </Grid>
                         <Grid item xs={4}>
-                            <Container className={classes.search}>
+                            <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
                                 <InputBase
                                     value={authorLastNameSearchText}
                                     placeholder="Last name …"
@@ -227,18 +228,36 @@ function AuthorListView({ value }) {
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            loadAuthors({ page: page, rowsPerPage: rowsPerPage })
-                                        }
-                                    }}
+                                    // onKeyDown={(e) => {
+                                    //     if (e.key === 'Enter') {
+                                    //         loadAuthors({ page: page, rowsPerPage: rowsPerPage })
+                                    //     }
+                                    // }}
                                     onChange={(e) => setAuthorLastNameSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                             </Container>
                         </Grid>
+                        <Grid item xs={4} style={{ display: "flex", justifyContent: "flex-start" }}>
+                            <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }}>
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    size="small"
+                                    className={classes.button}
+                                    startIcon={<SearchIcon />}
+                                    // onClick={() => loadAuthors({ page: 0, rowsPerPage: rowsPerPage })}
+                                    onClick={() => {
+                                        setPage(0)
+                                        loadAuthors({ page: 0, rowsPerPage: rowsPerPage })
+                                    }}
+                                >
+                                    Search
+                                </Button>
+                            </Container>
+                        </Grid>
                         <Grid item xs={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Container className={classes.search}>
+                            <Container className={classes.search} style={{ paddingRight: "0px", marginRight: "0px" }}>
                                 <Button
                                     variant="contained"
                                     color="primary"
@@ -283,11 +302,11 @@ function AuthorListView({ value }) {
                                                         ))
                                             }
 
-                                            {emptyRows > 0 && (
+                                            {/* {emptyRows > 0 && (
                                                 <TableRow style={{ height: 53 * emptyRows }}>
                                                     <TableCell colSpan={6} />
                                                 </TableRow>
-                                            )}
+                                            )} */}
                                         </TableBody>
                                         <TableFooter>
                                             <TableRow>

@@ -130,6 +130,7 @@ function CategoryListView({ value }) {
         });
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
+    // const emptyRows = rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
 
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         // console.log("TEST")
@@ -259,11 +260,11 @@ function CategoryListView({ value }) {
                                                         ))
                                             }
 
-                                            {emptyRows > 0 && (
+                                            {/* {emptyRows > 0 && (
                                                 <TableRow style={{ height: 53 * emptyRows }}>
                                                     <TableCell colSpan={6} />
                                                 </TableRow>
-                                            )}
+                                            )} */}
                                         </TableBody>
                                         <TableFooter>
                                             <TableRow>

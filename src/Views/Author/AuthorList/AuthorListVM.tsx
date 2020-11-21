@@ -38,6 +38,7 @@ export default function AuthorListVM({ history, location }) {
 
     let { authors, error, count } = await authorRepository.loadAuthors({
       first_name: authorFirstNameSearchText,
+      last_name: authorLastNameSearchText,
       limit: rowsPerPage,
       offset: fromRowNumber
     });
@@ -64,20 +65,10 @@ export default function AuthorListVM({ history, location }) {
     history.push(`/author/${authorId}/info`)
   }
 
-  // function onSearch(value) {
-  //   setAuthorFirstNameSearchText(value);
-  //   const _items = masterItems.filter(
-  //     (listItem: IAuthor) =>
-  //       listItem.name.toLowerCase().includes(value.toLowerCase()) ||
-  //       listItem.code.toLowerCase().includes(value.toLowerCase())
-  //   );
-  //   setItems(_items);
-  //   setNumberOfRows(_items.length);
-  // }
 
-  // function onAdd() {
-  //   history.push("/author/new");
-  // }
+  function onAdd() {
+    history.push("/author/new");
+  }
 
   return {
     totalNumberOfRows,
@@ -88,6 +79,7 @@ export default function AuthorListVM({ history, location }) {
     offset,
     rowsPerPage,
     authorLastNameSearchText,
+    onAdd,
     setAuthorLastNameSearchText,
     setAuthorFirstNameSearchText,
     setRowsPerPage,
