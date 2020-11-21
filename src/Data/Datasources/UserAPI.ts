@@ -19,7 +19,7 @@ const UserAPI = {
             // debugger
             // console.log("SIGN UP ERROR : => ", error.data)
 
-            console.log("SIGN UP ERROR : => ", error.response.data.error)
+            // console.log("SIGN UP ERROR : => ", error.response.data.error)
             return { user: null, error: new Error(error.response.data.error || `Could not sign up User`) }
         }
     },
@@ -27,8 +27,8 @@ const UserAPI = {
     async signIn(user: IUserSignIn): Promise<{ user: IUserSignIn; error: any; }> {
         try {
             let response = await utilities.postApiCall(`signin`, user);
-            console.log("LOGIN RAW API RESPONSE: =>", response.data)
-            console.log("LOGIN DATA API RESPONSE: =>", response.data.data);
+            // console.log("LOGIN RAW API RESPONSE: =>", response.data)
+            // console.log("LOGIN DATA API RESPONSE: =>", response.data.data);
             saveUserToken(response.data.data)
             return { user: response.data.data, error: null };
         } catch (error) {
@@ -40,8 +40,8 @@ const UserAPI = {
     async getUser(): Promise<{ user: IUser; error: any; }> {
         try {
             let response = await utilities.getApiCall(`user`);
-            console.log("GET USER RESPONSE: =>", response.data)
-            console.log("GET USER DATA API RESPONSE: =>", response.data.data);
+            // console.log("GET USER RESPONSE: =>", response.data)
+            // console.log("GET USER DATA API RESPONSE: =>", response.data.data);
             return { user: response.data.data, error: null };
         } catch (error) {
             return { user: null, error: new Error(`Could not Get user up User`) }

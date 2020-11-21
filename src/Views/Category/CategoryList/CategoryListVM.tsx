@@ -2,6 +2,7 @@ import * as React from "react";
 import * as _ from "lodash";
 import { ICategory } from "../../../Domain/Entities/Category";
 // import { AlertContext } from "../../../context_providers/alert_context";
+import { MainContext } from "../../../context_providers/main_context";
 import CategoryRepository from "../../../Data/Repositories/CategoryRepository";
 import { lime } from "@material-ui/core/colors";
 
@@ -18,20 +19,19 @@ export default function CategoryListVM({ history, location }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // const Alert = React.useContext(AlertContext);
+  const { authors } = React.useContext(MainContext)
 
   const categoryRepository = new CategoryRepository();
 
   async function loadCategories({ rowsPerPage = 5, page = 0 }) {
     setLoading(true);
 
+
     let fromRowNumber = rowsPerPage * page;
     if (fromRowNumber >= totalNumberOfRows) {
       fromRowNumber = 0;
     }
 
-    // console.log(`offset : => `, fromRowNumber)
-    // console.log(`Rows per Page or Limit : => `, rowsPerPage)
-    // console.log(`Name : => `, searchText)
 
     let { categories, error, count } = await categoryRepository.loadCategories({
       name: searchText,

@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import { Route } from 'react-router-dom';
 import CategoryRouter from "./Views/Category/CategoryRouter"
 import AuthorRouter from "./Views/Author/AuthorRouter"
+import { MainDataProvider } from './context_providers/main_context';
 
 const useStyles2 = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,22 +41,24 @@ function AppContainer() {
 
   return (
     <>
-      <Container className={classes.content}>
-        <div className={classes.toolbar} />
-        {/* <ContainerComponent /> */}
-        <CssBaseline />
-        <Container maxWidth="lg" className={classes2.root}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              {/* ROUTER WILL COME HERE */}
-              <Route path="/category" component={CategoryRouter} />
-              <Route path="/author" component={AuthorRouter} />
-              <Route path="/book" component={CategoryRouter} />
-              {/* <Tabs /> */}
+      <MainDataProvider>
+        <Container className={classes.content}>
+          <div className={classes.toolbar} />
+          {/* <ContainerComponent /> */}
+          <CssBaseline />
+          <Container maxWidth="lg" className={classes2.root}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                {/* ROUTER WILL COME HERE */}
+                <Route path="/category" component={CategoryRouter} />
+                <Route path="/author" component={AuthorRouter} />
+                <Route path="/book" component={CategoryRouter} />
+                {/* <Tabs /> */}
+              </Grid>
             </Grid>
-          </Grid>
+          </Container>
         </Container>
-      </Container>
+      </MainDataProvider>
     </>
   )
 }
