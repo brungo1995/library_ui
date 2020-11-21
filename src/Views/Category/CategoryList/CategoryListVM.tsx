@@ -49,6 +49,8 @@ export default function CategoryListVM({ history, location }) {
     if (categories.length === 0) {
       setRowsPerPage(5);
       setPage(0);
+      setItems(categories);
+      setMasterItems(categories);
       return;
     }
 
@@ -60,17 +62,6 @@ export default function CategoryListVM({ history, location }) {
   function onSelect(categoryId: string): void {
     history.push(`/category/${categoryId}/info`)
   }
-
-  // function onSearch(value) {
-  //   setSearchText(value);
-  //   const _items = masterItems.filter(
-  //     (listItem: ICategory) =>
-  //       listItem.name.toLowerCase().includes(value.toLowerCase()) ||
-  //       listItem.code.toLowerCase().includes(value.toLowerCase())
-  //   );
-  //   setItems(_items);
-  //   setNumberOfRows(_items.length);
-  // }
 
   // function onAdd() {
   //   history.push("/category/new");

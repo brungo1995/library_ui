@@ -53,6 +53,8 @@ export default function AuthorListVM({ history, location }) {
     if (authors.length === 0) {
       setRowsPerPage(5);
       setPage(0);
+      setItems(authors);
+      setMasterItems(authors);
       return;
     }
 

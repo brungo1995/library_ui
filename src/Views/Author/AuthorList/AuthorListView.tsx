@@ -151,6 +151,12 @@ function AuthorListView({ value }) {
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
+        if (parseInt(event.target.value, 10) === -1) {
+            setRowsPerPage(totalNumberOfRows || 0);
+            setPage(0);
+            loadAuthors({ page: 0, rowsPerPage: totalNumberOfRows || 0 })
+            return
+        }
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
         loadAuthors({ page: page, rowsPerPage: parseInt(event.target.value, 10) })

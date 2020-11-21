@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row } from "reactstrap";
-import { ICategory } from "../../../Domain/Entities/Category";
+import { IAuthor } from "../../../Domain/Entities/Author";
 import { findParams } from "../../../utilities/utilities";
 import SearchBar from "../../../components/SearchBar";
 import ListItemView from "../../../components/ListView";
@@ -33,24 +33,24 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function CategoryEditView({ value }): JSX.Element {
+function AuthorEditView({ value }): JSX.Element {
     const classes = useStyles();
     const history = useHistory();
     const params = useParams();
-    let category_id = params['category_id'];
-    const isNewCategory = category_id === "new";
+    let author_id = params['author_id'];
+    const isNewAuthor = author_id === "new";
 
-    const { isLoading, item, CategoryValidationSchema, loadCategory, onCancel, handleInputChange, onSave } = useVM({
-        category_id: category_id,
+    const { isLoading, item, AuthorValidationSchema, loadAuthor, onCancel, handleInputChange, onSave } = useVM({
+        author_id: author_id,
         history,
     });
 
 
     React.useEffect(() => {
-        if (!isNewCategory) {
-            loadCategory();
+        if (!isNewAuthor) {
+            loadAuthor();
         }
-    }, [category_id]);
+    }, [author_id]);
 
     return (
         <TabPanel value={value} index={2}>
@@ -69,25 +69,23 @@ function CategoryEditView({ value }): JSX.Element {
                                 fullWidth
                                 required
                                 id="outlined-required"
-                                label="Name"
-                                name="name"
+                                label="First Name"
+                                name="first_name"
                                 onChange={handleInputChange}
-                                // defaultValue=""
-                                value={item.name || ""}
+                                value={item.first_name || ""}
                                 variant="outlined"
                             />
 
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
+                                fullWidth
+                                required
                                 id="outlined-multiline-static"
                                 label="Description"
-                                multiline
-                                rows={6}
-                                name="description"
-                                // defaultValue=""
+                                name="last_name"
                                 onChange={handleInputChange}
-                                value={item.description || ""}
+                                value={item.last_name || ""}
                                 variant="outlined"
                             />
 
@@ -125,4 +123,4 @@ function CategoryEditView({ value }): JSX.Element {
     )
 }
 
-export default CategoryEditView;
+export default AuthorEditView;

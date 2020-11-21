@@ -1,58 +1,58 @@
 import React from "react";
-import { ICategory, CategoryValidationSchema } from "../../../Domain/Entities/Category";
+import { IAuthor, AuthorValidationSchema } from "../../../Domain/Entities/Author";
 import { AlertContext } from "../../../context_providers/alert_context";
-import CategoryRepository from "../../../Data/Repositories/CategoryRepository";
+import AuthorRepository from "../../../Data/Repositories/AuthorRepository";
 import _ from "lodash";
 
-function CategoryDetailVM({ category_id, history }) {
-    const initialValue = { description: "", name: "" };
-    const [item, setItem] = React.useState<ICategory>(initialValue);
-    const [masterItem, setMasterItem] = React.useState<ICategory>(initialValue);
+function AuthorDetailVM({ author_id, history }) {
+    const initialValue = { first_name: "", last_name: "" };
+    const [item, setItem] = React.useState<IAuthor>(initialValue);
+    const [masterItem, setMasterItem] = React.useState<IAuthor>(initialValue);
     const [isLoading, setLoading] = React.useState<boolean>(false);
     const Alert = React.useContext(AlertContext);
-    const categoryRepository = new CategoryRepository();
+    const authorRepository = new AuthorRepository();
 
     React.useEffect(() => {
-        if (category_id === "new") {
+        if (author_id === "new") {
             setItem(initialValue);
         }
-    }, [category_id]);
+    }, [author_id]);
 
-    async function createCategory() {
-        const { category, error } = await categoryRepository.createCategory(item);
+    async function createAuthor() {
+        const { author, error } = await authorRepository.createAuthor(item);
         // setSubmitting(false);
         if (error) {
             Alert.error(error.message);
             return;
         }
-        // console.log("CREATED CATEGORY: => ", category)
+        // console.log("CREATED CATEGORY: => ", author)
 
-        Alert.info("Category Created");
-        history.replace(`/category/${category.category_id}/info`, { isReloadCategoryList: true });
+        Alert.info("Author Created");
+        history.replace(`/author/${author.author_id}/info`, { isReloadAuthorList: true });
     }
 
-    async function loadCategory(): Promise<void> {
+    async function loadAuthor(): Promise<void> {
         setLoading(true);
-        let { category, error } = await categoryRepository.loadCategory(category_id);
+        let { author, error } = await authorRepository.loadAuthor(author_id);
         setLoading(false);
         if (error) {
             Alert.error(error.message);
             return;
         }
 
-        // console.log(category)
-        setItem(category);
-        setMasterItem(category)
+        // console.log(author)
+        setItem(author);
+        setMasterItem(author)
     }
 
     function onCancel() {
         if (isItemEdited()) {
             Alert.confirm("Would you like to leave without saving changes?", onOkConfirmation);
         } else {
-            if (category_id === "new") {
-                history.replace(`/category`);
+            if (author_id === "new") {
+                history.replace(`/author`);
             } else {
-                history.replace(`/category/${item.category_id}/info`);
+                history.replace(`/author/${item.author_id}/info`);
             }
         }
     }
@@ -67,30 +67,30 @@ function CategoryDetailVM({ category_id, history }) {
 
     async function onSave() {
         if (isItemEdited()) {
-            if (category_id === "new") {
-                await createCategory();
+            if (author_id === "new") {
+                await createAuthor();
             } else {
-                await updateCategory();
+                await updateAuthor();
             }
         } else {
 
-            if (category_id === "new") {
-                history.replace(`/category`);
+            if (author_id === "new") {
+                history.replace(`/author`);
             } else {
-                history.replace(`/category/${item.category_id}/info`);
+                history.replace(`/author/${item.author_id}/info`);
             }
         }
     }
 
-    async function updateCategory() {
-        const { category, error } = await categoryRepository.updateCategory(item);
+    async function updateAuthor() {
+        const { author, error } = await authorRepository.updateAuthor(item);
         // setSubmitting(false);
         if (error) {
             Alert.error(error.message);
             return;
         }
-        Alert.info("Category Updated");
-        history.replace(`/category/${item.category_id}/info`, { isReloadCategoryList: true });
+        Alert.info("Author Updated");
+        history.replace(`/author/${item.author_id}/info`, { isReloadAuthorList: true });
     }
 
     function handleInputChange(e) {
@@ -100,12 +100,12 @@ function CategoryDetailVM({ category_id, history }) {
     return {
         isLoading,
         item,
-        CategoryValidationSchema,
-        loadCategory,
+        AuthorValidationSchema,
+        loadAuthor,
         onCancel,
         handleInputChange,
         onSave
     };
 }
 
-export default CategoryDetailVM;
+export default AuthorDetailVM;
