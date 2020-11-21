@@ -34,10 +34,6 @@ function App() {
     const { user } = React.useContext(UserContext)
 
 
-    if (token) {
-        console.log(token)
-    }
-
     function PrivateRoute({ component: Component, ...rest }) {
         return (
             <Route

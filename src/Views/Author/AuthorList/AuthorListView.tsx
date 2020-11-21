@@ -1,10 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row, Spinner } from "reactstrap";
-// import { ICategory } from "../../../Domain/Entities/Category";
-// import { findParams } from "../../../utilities/utilities";
-// import SearchBar from "../../../components/SearchBar";
-// import ListItemView from "../../../components/ListView";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -28,7 +24,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TabPanel from "../../../components/TabPanel";
 import { useHistory, useLocation } from "react-router-dom";
-import useVM from "./CategoryListVM";
+import useVM from "./AuthorListVM";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -118,14 +114,27 @@ const useStyles1 = makeStyles((theme: Theme) =>
     }),
 );
 
-function CategoryListView({ value }) {
+function AuthorListView({ value }) {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
 
 
-    const { totalNumberOfRows, isLoading, items, searchText, page, offset, rowsPerPage,
-        setRowsPerPage, setOffset, setPage, loadCategories, onSelect, setSearchText } = useVM({
+    const { totalNumberOfRows,
+        isLoading,
+        items,
+        authorFirstNameSearchText,
+        page,
+        offset,
+        rowsPerPage,
+        authorLastNameSearchText,
+        setAuthorLastNameSearchText,
+        setAuthorFirstNameSearchText,
+        setRowsPerPage,
+        setOffset,
+        setPage,
+        loadAuthors,
+        onSelect } = useVM({
             history, location,
         });
 
@@ -134,7 +143,7 @@ function CategoryListView({ value }) {
     const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
         // console.log("TEST")
         setPage(newPage);
-        loadCategories({ page: newPage, rowsPerPage: rowsPerPage });
+        loadAuthors({ page: newPage, rowsPerPage: rowsPerPage });
     };
 
 
@@ -143,11 +152,11 @@ function CategoryListView({ value }) {
     ) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-        loadCategories({ page: page, rowsPerPage: parseInt(event.target.value, 10) })
+        loadAuthors({ page: page, rowsPerPage: parseInt(event.target.value, 10) })
     };
 
     function onCreate() {
-        history.push(`/category/new`)
+        history.push(`/author/new`)
         // console.log(id)
     };
 
@@ -181,7 +190,7 @@ function CategoryListView({ value }) {
     }
 
     React.useEffect(() => {
-        loadCategories({});
+        loadAuthors({});
     }, []);
 
     return (
@@ -190,20 +199,40 @@ function CategoryListView({ value }) {
                 <CssBaseline />
                 <Container maxWidth="lg" className={classes.root}>
                     <Grid container spacing={3}>
-                        <Grid item xs={8}>
+                        <Grid item xs={4}>
                             <Container className={classes.search}>
                                 <InputBase
-                                    placeholder="Search by name …"
+                                    value={authorFirstNameSearchText}
+                                    placeholder="First name …"
                                     classes={{
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') {
-                                            loadCategories({ page: page, rowsPerPage: rowsPerPage })
+                                            loadAuthors({ page: page, rowsPerPage: rowsPerPage })
                                         }
                                     }}
-                                    onChange={(e) => setSearchText(e.target.value)}
+                                    onChange={(e) => setAuthorFirstNameSearchText(e.target.value)}
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </Container>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Container className={classes.search}>
+                                <InputBase
+                                    value={authorLastNameSearchText}
+                                    placeholder="Last name …"
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            loadAuthors({ page: page, rowsPerPage: rowsPerPage })
+                                        }
+                                    }}
+                                    onChange={(e) => setAuthorLastNameSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                             </Container>
@@ -229,8 +258,8 @@ function CategoryListView({ value }) {
                                     <Table className={classes.table} aria-label="simple table">
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell>Name</TableCell>
-                                                <TableCell align="left">Description</TableCell>
+                                                <TableCell>First Name</TableCell>
+                                                <TableCell>Last Name</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -239,21 +268,16 @@ function CategoryListView({ value }) {
                                                 isLoading ?
                                                     (<tr><td colSpan={2}><Spinner /></td></tr>)
                                                     :
-                                                    // (
-                                                    //     rowsPerPage > 0
-                                                    //         ? items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    //         : items
-                                                    // )
                                                     items
                                                         .map((row, idx) => (
                                                             <TableRow key={idx}
-                                                                onClick={() => onSelect(row.category_id)}
+                                                                onClick={() => onSelect(row.author_id)}
                                                             >
                                                                 <TableCell component="td" scope="row">
-                                                                    {row.name}
+                                                                    {row.first_name}
                                                                 </TableCell>
                                                                 <TableCell align="left">
-                                                                    {row.description}
+                                                                    {row.last_name}
                                                                 </TableCell>
                                                             </TableRow>
                                                         ))
@@ -301,99 +325,4 @@ function CategoryListView({ value }) {
     )
 }
 
-export default CategoryListView;
-
-
-// const data = [
-//     {
-//         "category_id": 1,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 10,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 100,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1000,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 11,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 111,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1111,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 12,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 122,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1222,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 13,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 133,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1333,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     }
-//     // ,
-//     // {
-//     //     "category_id": 14,
-//     //     "name": "Action",
-//     //     "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//     //     "operation_by_user": "Domingos"
-//     // }
-// ]
+export default AuthorListView;
