@@ -35,7 +35,7 @@ function CategoryInfoView({ value }): JSX.Element {
     const params = useParams();
     let category_id = params['category_id']
 
-    const { isLoading, item, loadCategory, onDelete, } = useVM({
+    const { isLoading, item, loadCategory, onDelete, errorMessage } = useVM({
         category_id,
         history: history,
     });
@@ -97,7 +97,13 @@ function CategoryInfoView({ value }): JSX.Element {
                                         startIcon={<EditIcon />}>Edit
                             </Button>
                                 </Grid>
+                                <Grid item xs={12}>
+                                    <Typography paragraph style={{ color: "red", }}>
+                                        {errorMessage}
+                                    </Typography>
+                                </Grid>
                             </Grid>
+
                         )}
                 </div>
             </Container>

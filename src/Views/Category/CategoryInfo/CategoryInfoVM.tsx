@@ -8,6 +8,7 @@ function CategoryInfoVM({ category_id, history }) {
     const [item, setItem] = React.useState<ICategory>({} as ICategory);
     const Alert = React.useContext(AlertContext);
     const categoryRepository = new CategoryRepository();
+    const [errorMessage, setErrorMessage] = React.useState("")
 
     async function loadCategory(): Promise<void> {
         setIsLoading(true);
@@ -18,6 +19,7 @@ function CategoryInfoVM({ category_id, history }) {
 
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
 
@@ -33,6 +35,7 @@ function CategoryInfoVM({ category_id, history }) {
         if (error) {
             Alert.error(error.message);
             console.log(error)
+            setErrorMessage(error.message + ". It might be linked to other entities")
             return;
         }
         Alert.info("Category Removed");
@@ -41,7 +44,7 @@ function CategoryInfoVM({ category_id, history }) {
     }
 
     return {
-        isLoading, item, loadCategory, onDelete,
+        isLoading, item, loadCategory, onDelete, errorMessage
         // onEdit
     };
 }

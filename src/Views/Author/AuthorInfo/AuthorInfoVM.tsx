@@ -7,6 +7,7 @@ function AuthorInfoVM({ author_id, history }) {
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [item, setItem] = React.useState<IAuthor>({} as IAuthor);
     const Alert = React.useContext(AlertContext);
+    const [errorMessage, setErrorMessage] = React.useState("")
     const authorRepository = new AuthorRepository();
 
     async function loadAuthor(): Promise<void> {
@@ -17,9 +18,12 @@ function AuthorInfoVM({ author_id, history }) {
         // console.log(author)
 
         if (error) {
+
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
+
 
         setItem(author);
     }
@@ -33,6 +37,7 @@ function AuthorInfoVM({ author_id, history }) {
         if (error) {
             Alert.error(error.message);
             console.log(error)
+            setErrorMessage(error.message + ". It might be linked to other entities")
             return;
         }
         Alert.info("Author Removed");
@@ -41,7 +46,7 @@ function AuthorInfoVM({ author_id, history }) {
     }
 
     return {
-        isLoading, item, loadAuthor, onDelete,
+        isLoading, item, loadAuthor, onDelete, errorMessage
         // onEdit
     };
 }

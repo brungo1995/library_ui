@@ -37,7 +37,7 @@ function AuthorInfoView({ value }): JSX.Element {
     const params = useParams();
     let author_id = params['author_id']
 
-    const { isLoading, item, loadAuthor, onDelete, } = useVM({
+    const { isLoading, item, loadAuthor, onDelete, errorMessage } = useVM({
         author_id,
         history: history,
     });
@@ -98,6 +98,11 @@ function AuthorInfoView({ value }): JSX.Element {
                                         // className={classes.button}
                                         startIcon={<EditIcon />}>Edit
                             </Button>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography paragraph style={{ color: "red", }}>
+                                        {errorMessage}
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         )}

@@ -16,7 +16,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { MainContext } from "../../../context_providers/main_context"
 import { IAuthor } from "../../../Domain/Entities/Author";
 
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
