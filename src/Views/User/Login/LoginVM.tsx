@@ -15,12 +15,10 @@ function LoginVM({ history }) {
     const [isLoading, setLoading] = React.useState<boolean>(false);
     const [wrongEmailOrPassword, setWrongEmailOrPassword] = React.useState<boolean>(false);
     const Alert = React.useContext(AlertContext);
-    const User = React.useContext(UserContext);
+    const { setUser } = React.useContext(UserContext);
     const loginRepository = new UserRepository();
 
-    // React.useEffect(() => {
 
-    // }, []);
 
     async function login() {
         const { user, error } = await loginRepository.signIn(item);
@@ -31,15 +29,18 @@ function LoginVM({ history }) {
             // Alert.error(error.message);
             return;
         }
-        console.log("LOGIN USER : => ", user)
 
-        User.setUser(user)
-
-        setWrongEmailOrPassword(false)
+        // setUser(user)
+        // setWrongEmailOrPassword(false)
 
         if (user && user.token) {
+            setUser(user)
+            setWrongEmailOrPassword(false)
             //add user details to auth context
+            // history.replace(`/`);
             history.replace(`/category`);
+        } else {
+            history.replace(`/signin`);
         }
 
     }

@@ -23,6 +23,8 @@ const UserAPI = {
             // console.log("LOGIN RAW API RESPONSE: =>", response.data)
             // console.log("LOGIN DATA API RESPONSE: =>", response.data.data);
             saveUserToken(response.data.data)
+            // debugger
+            // localStorage.setItem("token", response.data.data.token);
             return { user: response.data.data, error: null };
         } catch (error) {
             return { user: null, error: new Error(`Could not Log in up User`) }

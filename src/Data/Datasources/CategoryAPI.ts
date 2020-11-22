@@ -25,6 +25,7 @@ const CategoryAPI = {
 
     async loadCategories(searchPayload: ISearchCategory): Promise<{ categories: ICategory[]; count: number, error: Error; }> {
         try {
+
             let isName = searchPayload.name && searchPayload.name !== "" ? searchPayload.name : null;
             let query = `category?`;
 

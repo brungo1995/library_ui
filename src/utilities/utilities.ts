@@ -6,29 +6,53 @@ const baseUrl = "http://localhost:5005/";
 const JWT_TOKEN = localStorage.getItem('token');
 
 const options = {
-    headers: AuthHeader(),
-    // headers: {
-    //     'Authorization': `Bearer ${JWT_TOKEN}`,
-    //     'Content-Type': 'application/json'
-    // },
+    // headers: AuthHeader(),
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+    },
 };
 
 export function getBaseUrl() {
     return baseUrl;
 }
 
+// export function getApiCall(url: string) {
+//     debugger
+//     return axios.get(baseUrl + url, options);
+// }
 export function getApiCall(url: string) {
-    return axios.get(baseUrl + url, options);
+    return axios.get(baseUrl + url, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+        },
+    });
 }
 
 export function postApiCall(url: string, data: any) {
-    return axios.post(baseUrl + url, data, options);
+    return axios.post(baseUrl + url, data, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+        },
+    });
 }
 
 export function deleteApiCall(url: string) {
-    return axios.delete(baseUrl + url, options);
+    return axios.delete(baseUrl + url, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+        },
+    });
 }
 
 export function putApiCall(url: string, data: any) {
-    return axios.put(baseUrl + url, data, options);
+    return axios.put(baseUrl + url, data, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+        },
+    });
 }
