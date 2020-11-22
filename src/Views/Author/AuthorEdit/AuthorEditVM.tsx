@@ -63,14 +63,26 @@ function AuthorDetailVM({ author_id, history }) {
         return isEdited
     }
 
+    function isPayloadValid() {
+        let isvalid = !(
+            _.isEmpty(item.first_name)
+            ||
+            _.isEmpty(item.last_name)
+        )
+            ;
+        return isvalid;
+    }
+
     const onOkConfirmation = () => history.goBack();
 
     async function onSave() {
         if (isItemEdited()) {
-            if (author_id === "new") {
-                await createAuthor();
-            } else {
-                await updateAuthor();
+            if (isPayloadValid()) {
+                if (author_id === "new") {
+                    await createAuthor();
+                } else {
+                    await updateAuthor();
+                }
             }
         } else {
 
@@ -102,6 +114,7 @@ function AuthorDetailVM({ author_id, history }) {
         item,
         AuthorValidationSchema,
         loadAuthor,
+        isPayloadValid,
         onCancel,
         handleInputChange,
         onSave

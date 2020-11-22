@@ -40,7 +40,7 @@ function AuthorEditView({ value }): JSX.Element {
     let author_id = params['author_id'];
     const isNewAuthor = author_id === "new";
 
-    const { isLoading, item, AuthorValidationSchema, loadAuthor, onCancel, handleInputChange, onSave } = useVM({
+    const { isLoading, item, AuthorValidationSchema, loadAuthor, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
         author_id: author_id,
         history,
     });
@@ -101,6 +101,7 @@ function AuthorEditView({ value }): JSX.Element {
                                     className={classes.button}
                                     startIcon={<SaveIcon />}
                                     onClick={onSave}
+                                    disabled={isPayloadValid() ? false : true}
                                 >
                                     Save
                                 </Button>

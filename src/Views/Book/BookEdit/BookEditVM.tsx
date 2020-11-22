@@ -110,11 +110,12 @@ function BookDetailVM({ isbn_number, history }) {
 
     async function onSave() {
         if (isItemEdited()) {
-            // Validateion
-            if (isbn_number === "new") {
-                await createBook();
-            } else {
-                await updateBook();
+            if (isPayloadValid()) {
+                if (isbn_number === "new") {
+                    await createBook();
+                } else {
+                    await updateBook();
+                }
             }
         } else {
 

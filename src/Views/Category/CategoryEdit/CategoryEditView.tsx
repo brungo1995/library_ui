@@ -40,7 +40,7 @@ function CategoryEditView({ value }): JSX.Element {
     let category_id = params['category_id'];
     const isNewCategory = category_id === "new";
 
-    const { isLoading, item, CategoryValidationSchema, loadCategory, onCancel, handleInputChange, onSave } = useVM({
+    const { isLoading, item, CategoryValidationSchema, loadCategory, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
         category_id: category_id,
         history,
     });
@@ -103,6 +103,7 @@ function CategoryEditView({ value }): JSX.Element {
                                     className={classes.button}
                                     startIcon={<SaveIcon />}
                                     onClick={onSave}
+                                    disabled={isPayloadValid() ? false : true}
                                 >
                                     Save
                                 </Button>

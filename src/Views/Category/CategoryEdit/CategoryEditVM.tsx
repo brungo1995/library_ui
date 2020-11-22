@@ -63,6 +63,17 @@ function CategoryDetailVM({ category_id, history }) {
         return isEdited
     }
 
+
+    function isPayloadValid() {
+        let isvalid = !(
+            _.isEmpty(item.name)
+            ||
+            _.isEmpty(item.description)
+        )
+            ;
+        return isvalid;
+    }
+
     const onOkConfirmation = () => history.goBack();
 
     async function onSave() {
@@ -101,6 +112,7 @@ function CategoryDetailVM({ category_id, history }) {
         isLoading,
         item,
         CategoryValidationSchema,
+        isPayloadValid,
         loadCategory,
         onCancel,
         handleInputChange,
