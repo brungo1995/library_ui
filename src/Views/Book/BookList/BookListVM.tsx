@@ -113,6 +113,7 @@ export default function BookListVM({ history, location }) {
   }
 
 
+
   return {
     totalNumberOfRows,
     isLoading,

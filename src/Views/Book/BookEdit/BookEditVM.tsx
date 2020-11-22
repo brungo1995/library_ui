@@ -6,6 +6,7 @@ import BookRepository from "../../../Data/Repositories/BookRepository";
 import _ from "lodash";
 import moment from 'moment';
 import { MainContext } from "../../../context_providers/main_context"
+import { isValid } from "date-fns";
 
 function BookDetailVM({ isbn_number, history }) {
     const initialValue = { name: "", isbn_number: "", categories: [], year_published: "", author: 0 };
@@ -125,6 +126,23 @@ function BookDetailVM({ isbn_number, history }) {
         }
     }
 
+    function isPayloadValid() {
+        let isvalid = !(
+            _.isEmpty(item.name)
+            ||
+            _.isEmpty(item.isbn_number)
+            ||
+            _.isEmpty(item.year_published)
+            ||
+            item.author <= 0
+            ||
+            item.categories.length <= 0
+        )
+            ;
+        return isvalid;
+    }
+
+
     async function updateBook() {
         const { book, error } = await bookRepository.updateBook(item);
         // setSubmitting(false);
@@ -153,6 +171,7 @@ function BookDetailVM({ isbn_number, history }) {
         isLoading, bookCategories,
         item,
         categories,
+        isPayloadValid,
         handleInputChangeCategories,
         loadBook,
         onCancel,

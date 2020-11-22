@@ -66,7 +66,8 @@ function BookEditView({ value }): JSX.Element {
         onCancel,
         handleInputChange,
         onSave,
-        handleInputChangeCategories } = useVM({
+        handleInputChangeCategories,
+        isPayloadValid } = useVM({
             isbn_number: isbn_number,
             history,
         });
@@ -120,16 +121,17 @@ function BookEditView({ value }): JSX.Element {
                                         let event = {
                                             target: {
                                                 name: 'author',
-                                                value: value.author_id
+                                                value: (value && value.author_id) || 0
                                             }
                                         }
                                         handleInputChange(event)
                                     }}
                                     renderInput={(params) => (
-                                        <TextField {...params} style={{ marginTop: '0px' }}
+
+                                        <TextField required {...params} style={{ marginTop: '0px' }}
                                             variant="outlined"
-                                            label="Authors"
-                                            placeholder="Authors" />
+                                            label="Author"
+                                            placeholder="Author" />
                                     )}
                                 />
                             </FormControl>
@@ -176,7 +178,8 @@ function BookEditView({ value }): JSX.Element {
                                         <TextField {...params} style={{ marginTop: '0px' }}
                                             variant="outlined"
                                             label="Categories"
-                                            placeholder="Categories" />
+                                            placeholder="Categories"
+                                            required />
                                     )}
                                 />
                             </FormControl>
@@ -184,8 +187,8 @@ function BookEditView({ value }): JSX.Element {
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
-                                fullWidth
                                 required
+                                fullWidth
                                 id="outlined-required"
                                 label="Year published"
                                 name="year_published"
@@ -211,6 +214,7 @@ function BookEditView({ value }): JSX.Element {
                                     className={classes.button}
                                     startIcon={<SaveIcon />}
                                     onClick={onSave}
+                                    disabled={isPayloadValid() ? false : true}
                                 >
                                     Save
                                 </Button>
