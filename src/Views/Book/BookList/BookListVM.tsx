@@ -3,7 +3,7 @@ import * as _ from "lodash";
 import { IBook, IGetBooksResponse, IBookResponseCollection } from "../../../Domain/Entities/Book";
 // import { AlertContext } from "../../../context_providers/alert_context";
 import BookRepository from "../../../Data/Repositories/BookRepository";
-import { lime } from "@material-ui/core/colors";
+import moment from "moment";
 
 export default function BookListVM({ history, location }) {
   const [totalNumberOfRows, setNumberOfRows] = React.useState(0);
@@ -17,6 +17,7 @@ export default function BookListVM({ history, location }) {
   const [category, setCategory] = React.useState("");
   const [book_name, setBookName] = React.useState("");
   const [isbn_number, setIsbnNumber] = React.useState("");
+  const [publishedYearErrorMeesage, setYearPublishedErrorMeesage] = React.useState("");
   const [year_published, setYearPublished] = React.useState("");
   const [limit, setLimit] = React.useState(0);
   const [offset, setOffset] = React.useState(0);
@@ -51,6 +52,9 @@ export default function BookListVM({ history, location }) {
     if (error) {
       // Alert.error(error.message);
       console.log(error)
+      setItems([]);
+      setMasterItems([]);
+      setNumberOfRows(0);
       return;
     }
 
@@ -73,10 +77,40 @@ export default function BookListVM({ history, location }) {
   }
 
 
+
   function onAdd() {
     history.push("/book/new");
   }
 
+  function isValidPublishedYear() {
+    const dateFormat = 'YYYY';
+    if (!_.isEmpty(year_published) || !_.isNull(year_published)) {
+      let isValid = moment(year_published, dateFormat, true).isValid();
+      if (!isValid) {
+        setYearPublishedErrorMeesage("Choose a valid yeay");
+        return true
+      }
+    }
+
+    return false
+  }
+
+  function handleAutocompleteInputChange(e) {
+
+    switch (e.target.name) {
+
+      case "first_name":
+        setAuthorFirstName(e.target.value)
+        break;
+      case "last_name":
+        setAuthorLastName(e.target.value)
+        break;
+      case "category":
+        setCategory(e.target.value)
+        break;
+    }
+
+  }
 
 
   return {
@@ -92,6 +126,9 @@ export default function BookListVM({ history, location }) {
     page,
     offset,
     rowsPerPage,
+    isValidPublishedYear,
+    publishedYearErrorMeesage,
+    handleAutocompleteInputChange,
     onAdd,
     setRowsPerPage,
     setOffset,

@@ -10,15 +10,18 @@ import Grid from '@material-ui/core/Grid';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
+import TextField from '@material-ui/core/TextField';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
+import FormControl from '@material-ui/core/FormControl';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TabPanel from "../../../components/TabPanel";
@@ -28,11 +31,30 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
+import { MainContext } from "../../../context_providers/main_context"
+import { IAuthor } from "../../../Domain/Entities/Author";
+import { ICategory } from "../../../Domain/Entities/Category";
+import moment from "moment";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from "@date-io/date-fns";
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             flexGrow: 1,
+        },
+        formControl: {
+            margin: theme.spacing(1),
+            minWidth: '100%',
+            // minWidth: 250,
+        },
+        selectEmpty: {
+            marginTop: theme.spacing(2),
         },
 
         button: {
@@ -119,7 +141,7 @@ function BookListView({ value }) {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
-
+    const { categories, authors } = React.useContext(MainContext)
 
     const { totalNumberOfRows,
         isLoading,
@@ -133,6 +155,9 @@ function BookListView({ value }) {
         page,
         offset,
         rowsPerPage,
+        isValidPublishedYear,
+        publishedYearErrorMeesage,
+        handleAutocompleteInputChange,
         onAdd,
         setRowsPerPage,
         setOffset,
@@ -216,42 +241,182 @@ function BookListView({ value }) {
                 <Container maxWidth="lg" className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={4} >
-                            <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }}>
-                                <InputBase
-                                    // value={bookFirstNameSearchText}
-                                    placeholder="First name …"
-                                    classes={{
-                                        root: classes.inputRoot,
-                                        input: classes.inputInput,
-                                    }}
-                                    // onKeyDown={(e) => {
-                                    //     if (e.key === 'Enter') {
-                                    //         loadBooks({ page: page, rowsPerPage: rowsPerPage })
-                                    //     }
-                                    // }}
-                                    // onChange={(e) => setBookFirstNameSearchText(e.target.value)}
-                                    inputProps={{ 'aria-label': 'search' }}
-                                />
-                            </Container>
+
+                            <FormControl required
+                                className={classes.formControl}
+                            >
+                                <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
+                                    <TextField
+                                        style={{ width: "100%" }}
+                                        value={author_first_name}
+                                        classes={{
+                                            root: classes.inputRoot,
+                                        }}
+                                        label="Author first name"
+                                        onChange={(e) => setAuthorFirstName(e.target.value)}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Container>
+
+                                {/* <Autocomplete
+                                        limitTags={1}
+                                        value={(authors || []).find(author => author.first_name == author_first_name) || null}
+                                        id="multiple-limit-tags"
+                                        options={authors}
+                                        getOptionLabel={(option: IAuthor) => option.first_name}
+                                        onChange={(e, value: any) => {
+                                            let event = {
+                                                target: {
+                                                    name: 'first_name',
+                                                    value: (value && value.first_name) || ""
+                                                }
+                                            }
+                                            handleAutocompleteInputChange(event)
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField {...params} label="Author first name" />
+                                        )}
+                                    /> */}
+                            </FormControl>
                         </Grid>
                         <Grid item xs={4}>
-                            <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
-                                <InputBase
-                                    // value={bookLastNameSearchText}
-                                    placeholder="Last name …"
-                                    classes={{
-                                        root: classes.inputRoot,
-                                        input: classes.inputInput,
-                                    }}
-                                    // onKeyDown={(e) => {
-                                    //     if (e.key === 'Enter') {
-                                    //         loadBooks({ page: page, rowsPerPage: rowsPerPage })
-                                    //     }
-                                    // }}
-                                    // onChange={(e) => setBookLastNameSearchText(e.target.value)}
-                                    inputProps={{ 'aria-label': 'search' }}
-                                />
-                            </Container>
+
+                            <FormControl required
+                                className={classes.formControl}
+                            >
+                                <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
+                                    <TextField
+                                        style={{ width: "100%" }}
+                                        value={author_last_name}
+                                        classes={{
+                                            root: classes.inputRoot,
+                                        }}
+                                        label="Author last name"
+                                        onChange={(e) => setAuthorLastName(e.target.value)}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Container>
+                                {/* <Autocomplete
+                                        limitTags={1}
+                                        value={(authors || []).find(author => author.last_name == author_last_name) || null}
+                                        id="multiple-limit-tags"
+                                        options={authors}
+                                        getOptionLabel={(option: IAuthor) => option.last_name}
+                                        onChange={(e, value: any) => {
+                                            let event = {
+                                                target: {
+                                                    name: 'last_name',
+                                                    value: (value && value.last_name) || ""
+                                                }
+                                            }
+                                            handleAutocompleteInputChange(event)
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField {...params} label="Author last name" />
+                                        )}
+                                    /> */}
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl required
+                                className={classes.formControl}
+                            >
+
+                                <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
+                                    <TextField
+                                        style={{ width: "100%" }}
+                                        value={category}
+                                        classes={{
+                                            root: classes.inputRoot,
+                                        }}
+                                        label="Category"
+                                        onChange={(e) => setCategory(e.target.value)}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Container>
+
+                                {/* <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} > */}
+                                {/* <Autocomplete
+                                        limitTags={1}
+                                        value={(categories || []).find(item => item.name == category) || null}
+                                        id="multiple-limit-tags"
+                                        options={categories}
+                                        getOptionLabel={(option: ICategory) => option.name}
+                                        onChange={(e, value: any) => {
+                                            let event = {
+                                                target: {
+                                                    name: 'category',
+                                                    value: (value && value.name) || value
+                                                }
+                                            }
+                                            handleAutocompleteInputChange(event)
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField {...params} label="Categories" />
+                                        )}
+                                    /> */}
+                                {/* </Container> */}
+                            </FormControl>
+
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl required
+                                className={classes.formControl}
+                            >
+                                <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
+                                    <TextField
+                                        style={{ width: "100%" }}
+                                        value={book_name}
+                                        classes={{
+                                            root: classes.inputRoot,
+                                        }}
+                                        label="Book name"
+                                        onChange={(e) => setBookName(e.target.value)}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Container>
+
+
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl required
+                                className={classes.formControl}
+                            >
+                                <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
+                                    <TextField
+                                        style={{ width: "100%" }}
+                                        label="ISBN number"
+                                        value={isbn_number}
+                                        classes={{
+                                            root: classes.inputRoot,
+                                        }}
+                                        onChange={(e) => setIsbnNumber(e.target.value)}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Container>
+
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl required
+                                className={classes.formControl}
+                            >
+                                <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }} >
+                                    <TextField
+                                        style={{ width: "100%" }}
+                                        value={year_published}
+                                        label="Year published"
+                                        classes={{
+                                            root: classes.inputRoot,
+                                        }}
+                                        onChange={(e) => setYearPublished(e.target.value)}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    // error={isValidPublishedYear()}
+                                    // helperText={publishedYearErrorMeesage}
+                                    />
+                                </Container>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={4} style={{ display: "flex", justifyContent: "flex-start" }}>
                             <Container className={classes.search} style={{ paddingLeft: "0px", marginLeft: "0px" }}>
@@ -261,7 +426,6 @@ function BookListView({ value }) {
                                     size="small"
                                     className={classes.button}
                                     startIcon={<SearchIcon />}
-                                    // onClick={() => loadBooks({ page: 0, rowsPerPage: rowsPerPage })}
                                     onClick={() => {
                                         setPage(0)
                                         loadBooks({ page: 0, rowsPerPage: rowsPerPage })
@@ -334,11 +498,6 @@ function BookListView({ value }) {
                                                         ))
                                             }
 
-                                            {/* {emptyRows > 0 && (
-                                                <TableRow style={{ height: 53 * emptyRows }}>
-                                                    <TableCell colSpan={6} />
-                                                </TableRow>
-                                            )} */}
                                         </TableBody>
                                         <TableFooter>
                                             <TableRow>
@@ -346,7 +505,6 @@ function BookListView({ value }) {
                                                     // rowsPerPageOptions={[]}
                                                     rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                                     colSpan={6}
-                                                    // count={data.length}
                                                     count={totalNumberOfRows}
                                                     rowsPerPage={rowsPerPage}
                                                     page={page}

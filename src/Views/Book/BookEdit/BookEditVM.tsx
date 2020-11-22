@@ -109,6 +109,7 @@ function BookDetailVM({ isbn_number, history }) {
 
     async function onSave() {
         if (isItemEdited()) {
+            // Validateion
             if (isbn_number === "new") {
                 await createBook();
             } else {
@@ -125,7 +126,6 @@ function BookDetailVM({ isbn_number, history }) {
     }
 
     async function updateBook() {
-        debugger
         const { book, error } = await bookRepository.updateBook(item);
         // setSubmitting(false);
         if (error) {
