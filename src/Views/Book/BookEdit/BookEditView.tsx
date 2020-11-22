@@ -144,9 +144,9 @@ function BookEditView({ value }): JSX.Element {
                                     multiple
                                     limitTags={2}
                                     id="multiple-limit-tags"
-                                    options={categories}
+                                    options={categories || []}
                                     getOptionLabel={(option: ICategory) => option.name}
-                                    value={bookCategories}
+                                    value={bookCategories || []}
                                     onChange={(e, values: any) => {
                                         let event = {
                                             target: {

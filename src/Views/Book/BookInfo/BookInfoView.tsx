@@ -58,25 +58,6 @@ function BookInfoView({ value }): JSX.Element {
                         </strong>
                     ) : (
                             <Grid container spacing={3}>
-
-                                {/*  "isbn_number": "4",
-                                        "book_name": "Fintech",
-                                        "author": 4,
-                                        "year_published": "2017",
-                                        "first_name": "Braulio",
-                                        "last_name": "Braulio SURNAME",
-                                        "categories": [
-                                        {
-                                            "category_id": 4,
-                                            "isbn_number": "4",
-                                            "name": "Science"
-                                        },
-                                        {
-                                            "category_id": 3,
-                                            "isbn_number": "4",
-                                            "name": "Fiction"
-                                        }
-                                        ]*/}
                                 <Grid item xs={6}>
                                     <Typography variant="h5" component="h5">
                                         Book Name

@@ -9,13 +9,14 @@ import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useStyles } from "./styles/styles"
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Typography } from "@material-ui/core";
+// import { Switch, Typography } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import CategoryRouter from "./Views/Category/CategoryRouter"
 import AuthorRouter from "./Views/Author/AuthorRouter"
 import BookRouter from "./Views/Book/BookRouter"
 import { MainDataProvider } from './context_providers/main_context';
+import NotFound from "./Views/NotFound";
 
 const useStyles2 = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,9 +52,12 @@ function AppContainer() {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 {/* ROUTER WILL COME HERE */}
-                <Route path="/category" component={CategoryRouter} />
-                <Route path="/author" component={AuthorRouter} />
-                <Route path="/book" component={BookRouter} />
+                <Switch>
+                  <Route path="/category" component={CategoryRouter} />
+                  <Route path="/author" component={AuthorRouter} />
+                  <Route path="/book" component={BookRouter} />
+                  {/* <Route component={NotFound} /> */}
+                </Switch>
                 {/* <Tabs /> */}
               </Grid>
             </Grid>

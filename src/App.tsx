@@ -10,7 +10,7 @@ import SignUpView from "./Views/User/SignUp/SignUpView"
 import LoginView from "./Views/User/Login/LoginView";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import NotFound from "./Views/NotFound"
 
 setConfig({
     reloadHooks: false,
