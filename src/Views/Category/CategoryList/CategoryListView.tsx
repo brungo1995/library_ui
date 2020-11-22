@@ -1,10 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row, Spinner } from "reactstrap";
-// import { ICategory } from "../../../Domain/Entities/Category";
-// import { findParams } from "../../../utilities/utilities";
-// import SearchBar from "../../../components/SearchBar";
-// import ListItemView from "../../../components/ListView";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -210,7 +206,6 @@ function CategoryListView({ value }) {
                                         if (e.key === 'Enter') {
                                             setPage(0)
                                             loadCategories({ page: 0, rowsPerPage: rowsPerPage })
-                                            // loadCategories({ page: page, rowsPerPage: rowsPerPage })
                                         }
                                     }}
                                     onChange={(e) => setSearchText(e.target.value)}
@@ -249,11 +244,6 @@ function CategoryListView({ value }) {
                                                 isLoading ?
                                                     (<tr><td colSpan={2}><Spinner /></td></tr>)
                                                     :
-                                                    // (
-                                                    //     rowsPerPage > 0
-                                                    //         ? items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                                    //         : items
-                                                    // )
                                                     items
                                                         .map((row, idx) => (
                                                             <TableRow key={idx}
@@ -269,19 +259,12 @@ function CategoryListView({ value }) {
                                                         ))
                                             }
 
-                                            {/* {emptyRows > 0 && (
-                                                <TableRow style={{ height: 53 * emptyRows }}>
-                                                    <TableCell colSpan={6} />
-                                                </TableRow>
-                                            )} */}
                                         </TableBody>
                                         <TableFooter>
                                             <TableRow>
                                                 <TablePagination
-                                                    // rowsPerPageOptions={[]}
                                                     rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                                     colSpan={6}
-                                                    // count={data.length}
                                                     count={totalNumberOfRows}
                                                     rowsPerPage={rowsPerPage}
                                                     page={page}
@@ -312,98 +295,3 @@ function CategoryListView({ value }) {
 }
 
 export default CategoryListView;
-
-
-// const data = [
-//     {
-//         "category_id": 1,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 10,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 100,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1000,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 11,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 111,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1111,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 12,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 122,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1222,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 13,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 133,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     },
-//     {
-//         "category_id": 1333,
-//         "name": "Action",
-//         "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//         "operation_by_user": "Domingos"
-//     }
-//     // ,
-//     // {
-//     //     "category_id": 14,
-//     //     "name": "Action",
-//     //     "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-//     //     "operation_by_user": "Domingos"
-//     // }
-// ]

@@ -30,12 +30,6 @@ export default function AuthorListVM({ history, location }) {
       fromRowNumber = 0;
     }
 
-    // console.log(`offset : => `, fromRowNumber)
-    // console.log(`Rows per Page or Limit : => `, rowsPerPage)
-    // console.log(`Name : => `, authorFirstNameSearchText)
-
-
-
     let { authors, error, count } = await authorRepository.loadAuthors({
       first_name: authorFirstNameSearchText,
       last_name: authorLastNameSearchText,

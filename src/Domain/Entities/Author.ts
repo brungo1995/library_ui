@@ -12,12 +12,6 @@ export interface IGetCategoriesResponse {
     // error?: Error
 }
 
-export const AuthorValidationSchema = Yup.object({
-    first_name: Yup.string().required("Required!"),
-    last_name: Yup.string().required("Required!"),
-});
-
-
 export interface ISearchAuthor {
     first_name?: string;
     last_name?: string;

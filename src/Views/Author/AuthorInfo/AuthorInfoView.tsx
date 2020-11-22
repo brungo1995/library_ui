@@ -2,8 +2,6 @@ import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row } from "reactstrap";
 import { IAuthor } from "../../../Domain/Entities/Author";
-import { findParams } from "../../../utilities/utilities";
-import SearchBar from "../../../components/SearchBar";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -32,9 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-
-// interface props extends RouteComponentProps<any, any, any> { }
-// function AuthorInfoView({ history, match, location }: props): JSX.Element {
 
 function AuthorInfoView({ value }): JSX.Element {
     const classes = useStyles();

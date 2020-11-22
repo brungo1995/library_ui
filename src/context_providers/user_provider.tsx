@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { IUser } from "../Domain/Entities/User"
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import UserRepository from "../Data/Repositories/UserRepository";
 

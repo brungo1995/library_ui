@@ -12,14 +12,7 @@ const UserAPI = {
             let response = await utilities.postApiCall(`signup`, user);
             return { user: response.data.data, error: null };
         } catch (error) {
-            // console.log("SIGN UP ERROR NAme: => ", error.name)
-            // console.log("SIGN UP ERROR Message: => ", error.message)
-            // console.log("SIGN UP ERROR ERROR: => ", error.error)
-            // console.log("SIGN UP ERROR : => ", error)
-            // debugger
-            // console.log("SIGN UP ERROR : => ", error.data)
 
-            // console.log("SIGN UP ERROR : => ", error.response.data.error)
             return { user: null, error: new Error(error.response.data.error || `Could not sign up User`) }
         }
     },

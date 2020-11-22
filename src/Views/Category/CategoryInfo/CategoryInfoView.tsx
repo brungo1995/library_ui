@@ -1,10 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import { Col, Row } from "reactstrap";
-import { ICategory } from "../../../Domain/Entities/Category";
-import { findParams } from "../../../utilities/utilities";
-import SearchBar from "../../../components/SearchBar";
-import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles';
@@ -33,8 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-// interface props extends RouteComponentProps<any, any, any> { }
-// function CategoryInfoView({ history, match, location }: props): JSX.Element {
 
 function CategoryInfoView({ value }): JSX.Element {
     const classes = useStyles();

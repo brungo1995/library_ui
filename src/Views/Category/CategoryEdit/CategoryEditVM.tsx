@@ -1,5 +1,5 @@
 import React from "react";
-import { ICategory, CategoryValidationSchema } from "../../../Domain/Entities/Category";
+import { ICategory } from "../../../Domain/Entities/Category";
 import { AlertContext } from "../../../context_providers/alert_context";
 import CategoryRepository from "../../../Data/Repositories/CategoryRepository";
 import _ from "lodash";
@@ -111,7 +111,6 @@ function CategoryDetailVM({ category_id, history }) {
     return {
         isLoading,
         item,
-        CategoryValidationSchema,
         isPayloadValid,
         loadCategory,
         onCancel,

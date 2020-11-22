@@ -6,8 +6,7 @@ const BookAPI = {
     async createBook(book: IBook): Promise<{ book: IBook; error: any; }> {
         try {
             let response = await utilities.postApiCall(`book`, book);
-            console.log("CREATE BOOK API RESPONSE: =>", response.data.data)
-            // debugger
+            // console.log("CREATE BOOK API RESPONSE: =>", response.data.data)
             return { book: response.data.data, error: null };
         } catch (error) {
             return { book: null, error: new Error(`Could not create Book`) }
@@ -27,15 +26,6 @@ const BookAPI = {
 
     async loadBooks(searchPayload: ISearchBook): Promise<{ data: IBookResponseCollection[]; count: number, error: any; }> {
         try {
-
-            // author_first_name: string;
-            // author_last_name: string;
-            // category: string;
-            // book_name: string;
-            // isbn_number: string;
-            // year_published: string;
-            // limit: number;
-            // offset: number;
 
             let query = `book?`;
 
@@ -61,10 +51,10 @@ const BookAPI = {
             }
 
             query += `limit=${searchPayload.limit}&offset=${searchPayload.offset}`
-            console.log("======= LOAD ALL BOOKS QUERY => ", query)
-            console.log(query)
+            // console.log("======= LOAD ALL BOOKS QUERY => ", query)
+            // console.log(query)
             let response = await utilities.getApiCall(query);
-            console.log("LOAD BOOKS API RESPONSE: =>", response.data.data);
+            // console.log("LOAD BOOKS API RESPONSE: =>", response.data.data);
 
             return { data: response.data.data, count: parseInt(response.data.count), error: null };
         } catch (error) {

@@ -6,10 +6,6 @@ export interface IBook {
     isbn_number: string;
     categories: number[];
     year_published: string;
-    // author_name?: string,
-    // author_last_name?: string,
-    // book_name?: string
-
 }
 
 export interface IGetBooksResponse {

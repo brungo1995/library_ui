@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
-import { IBook, IGetBooksResponse, IBookResponseCollection } from "../../../Domain/Entities/Book";
+import { IBookResponseCollection } from "../../../Domain/Entities/Book";
 // import { AlertContext } from "../../../context_providers/alert_context";
 import BookRepository from "../../../Data/Repositories/BookRepository";
 import moment from "moment";
@@ -8,8 +8,6 @@ import moment from "moment";
 export default function BookListVM({ history, location }) {
   const [totalNumberOfRows, setNumberOfRows] = React.useState(0);
   const [isLoading, setLoading] = React.useState(false);
-  // const [items, setItems] = React.useState<IBook[]>([] as IBook[]);
-  // const [masterItems, setMasterItems] = React.useState<IBook[]>([] as IBook[]);
   const [items, setItems] = React.useState<IBookResponseCollection[]>([] as IBookResponseCollection[]);
   const [masterItems, setMasterItems] = React.useState<IBookResponseCollection[]>([] as IBookResponseCollection[]);
   const [author_first_name, setAuthorFirstName] = React.useState("");
@@ -19,7 +17,6 @@ export default function BookListVM({ history, location }) {
   const [isbn_number, setIsbnNumber] = React.useState("");
   const [publishedYearErrorMeesage, setYearPublishedErrorMeesage] = React.useState("");
   const [year_published, setYearPublished] = React.useState("");
-  const [limit, setLimit] = React.useState(0);
   const [offset, setOffset] = React.useState(0);
 
   const [page, setPage] = React.useState(0);

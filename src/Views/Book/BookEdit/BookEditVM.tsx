@@ -1,12 +1,10 @@
 import React from "react";
-import { IBook, IBookResponseCollection } from "../../../Domain/Entities/Book";
-import { ICategory } from "../../../Domain/Entities/Category";
+import { IBook } from "../../../Domain/Entities/Book";
 import { AlertContext } from "../../../context_providers/alert_context";
 import BookRepository from "../../../Data/Repositories/BookRepository";
 import _ from "lodash";
 import moment from 'moment';
 import { MainContext } from "../../../context_providers/main_context"
-import { isValid } from "date-fns";
 
 function BookDetailVM({ isbn_number, history }) {
     const initialValue = { name: "", isbn_number: "", categories: [], year_published: "", author: 0 };
@@ -54,36 +52,7 @@ function BookDetailVM({ isbn_number, history }) {
     }
 
     function refactorBookLoadResponse(book) {
-        // "isbn_number": "4",
-        // "book_name": "Fintech",
-        // "author_id": 4,
-        // "year_published": "2017",
-        // "author_name": "Braulio",
-        // "author_last_name": "Braulio SURNAME",
-        // "categories": [
-        //   {
-        //     "category_id": 4,
-        //     "isbn_number": "4",
-        //     "name": "Science"
-        //   },
-        //   {
-        //     "category_id": 3,
-        //     "isbn_number": "4",
-        //     "name": "Fiction"
-        //   }
-        // ]
-
-        // let bookCategs = [];
-        // book.categories.forEach(category_id => {
-        //     categories.forEach((element: ICategory) => {
-        //         if (element.category_id === category_id) {
-        //             bookCategs.push(element)
-        //         }
-        //     });
-        // });
-
         setBookCategories(book.categories);
-        // let refactoredBook = { ...book, author: book.author_id, name: book.book_name, categories: (book.categories || []).map(category => category.category_id) }
         let refactoredBook = { ...book, author: book.author_id, name: book.book_name }
         return refactoredBook;
     }

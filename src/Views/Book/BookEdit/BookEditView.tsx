@@ -1,12 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
-import { Col, Row } from "reactstrap";
-import { IBook } from "../../../Domain/Entities/Book";
 import { ICategory } from "../../../Domain/Entities/Category";
-import { findParams } from "../../../utilities/utilities";
-import SearchBar from "../../../components/SearchBar";
-import ListItemView from "../../../components/ListView";
-import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles';
@@ -17,12 +11,7 @@ import Button from '@material-ui/core/Button';
 import TabPanel from "../../../components/TabPanel";
 import { useHistory, useParams } from "react-router-dom";
 import useVM from "./BookEditVM";
-import moment from 'moment';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { MainContext } from "../../../context_providers/main_context"
 import { IAuthor } from "../../../Domain/Entities/Author";
@@ -87,12 +76,6 @@ function BookEditView({ value }): JSX.Element {
             <Container maxWidth="lg">
                 <div className={classes.root}>
                     <Grid container spacing={3}
-                    // direction="column"
-                    // justify="center"
-                    // alignItems="center"
-
-                    // justify="center"
-                    // alignItems="center"
                     >
                         <Grid item xs={6}>
                             <TextField

@@ -2,10 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-// import CategoryTabs from "./Tabs.old"
-// import Tabs fro./Tabs.oldabs"
 import CategoryRouter from "../Views/Category/CategoryRouter"
 import { Route } from 'react-router-dom';
 import { Category } from '@material-ui/icons';

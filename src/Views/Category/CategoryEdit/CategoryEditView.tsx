@@ -1,11 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import { Col, Row } from "reactstrap";
-import { ICategory } from "../../../Domain/Entities/Category";
-import { findParams } from "../../../utilities/utilities";
-import SearchBar from "../../../components/SearchBar";
-import ListItemView from "../../../components/ListView";
-import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles';
@@ -40,7 +34,7 @@ function CategoryEditView({ value }): JSX.Element {
     let category_id = params['category_id'];
     const isNewCategory = category_id === "new";
 
-    const { isLoading, item, CategoryValidationSchema, loadCategory, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
+    const { isLoading, item, loadCategory, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
         category_id: category_id,
         history,
     });

@@ -1,19 +1,15 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row, Spinner } from "reactstrap";
-import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme, useTheme, fade } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
 import TextField from '@material-ui/core/TextField';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import FormControl from '@material-ui/core/FormControl';
@@ -27,20 +23,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TabPanel from "../../../components/TabPanel";
 import { useHistory, useLocation } from "react-router-dom";
 import useVM from "./BookListVM";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import { MainContext } from "../../../context_providers/main_context"
-import { IAuthor } from "../../../Domain/Entities/Author";
-import { ICategory } from "../../../Domain/Entities/Category";
-import moment from "moment";
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from "@date-io/date-fns";
+
 
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -13,8 +13,6 @@ const options = {
     // },
 };
 
-// Api call functions
-
 export function getBaseUrl() {
     return baseUrl;
 }
@@ -34,10 +32,3 @@ export function deleteApiCall(url: string) {
 export function putApiCall(url: string, data: any) {
     return axios.put(baseUrl + url, data, options);
 }
-
-
-export function findParams(path: string, url: string): any {
-    const matchingPath = React.matchPath(path, url);
-    return matchingPath ? matchingPath.params : null;
-}
-

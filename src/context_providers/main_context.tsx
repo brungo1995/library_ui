@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { ICategory } from "../Domain/Entities/Category"
 import { IAuthor } from "../Domain/Entities/Author"
-// import { ICategory } from "../Domain/Entities/Category"
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import CategoryRepository from "../Data/Repositories/CategoryRepository";
 import AuthorRepository from "../Data/Repositories/AuthorRepository";

@@ -215,11 +215,6 @@ function AuthorListView({ value }) {
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
-                                    // onKeyDown={(e) => {
-                                    //     if (e.key === 'Enter') {
-                                    //         loadAuthors({ page: page, rowsPerPage: rowsPerPage })
-                                    //     }
-                                    // }}
                                     onChange={(e) => setAuthorFirstNameSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
@@ -234,11 +229,7 @@ function AuthorListView({ value }) {
                                         root: classes.inputRoot,
                                         input: classes.inputInput,
                                     }}
-                                    // onKeyDown={(e) => {
-                                    //     if (e.key === 'Enter') {
-                                    //         loadAuthors({ page: page, rowsPerPage: rowsPerPage })
-                                    //     }
-                                    // }}
+
                                     onChange={(e) => setAuthorLastNameSearchText(e.target.value)}
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
@@ -252,7 +243,6 @@ function AuthorListView({ value }) {
                                     size="small"
                                     className={classes.button}
                                     startIcon={<SearchIcon />}
-                                    // onClick={() => loadAuthors({ page: 0, rowsPerPage: rowsPerPage })}
                                     onClick={() => {
                                         setPage(0)
                                         loadAuthors({ page: 0, rowsPerPage: rowsPerPage })
@@ -308,11 +298,7 @@ function AuthorListView({ value }) {
                                                         ))
                                             }
 
-                                            {/* {emptyRows > 0 && (
-                                                <TableRow style={{ height: 53 * emptyRows }}>
-                                                    <TableCell colSpan={6} />
-                                                </TableRow>
-                                            )} */}
+
                                         </TableBody>
                                         <TableFooter>
                                             <TableRow>

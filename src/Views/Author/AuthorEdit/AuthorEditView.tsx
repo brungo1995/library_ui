@@ -2,9 +2,6 @@ import * as React from "react";
 import * as _ from "lodash";
 import { Col, Row } from "reactstrap";
 import { IAuthor } from "../../../Domain/Entities/Author";
-import { findParams } from "../../../utilities/utilities";
-import SearchBar from "../../../components/SearchBar";
-import ListItemView from "../../../components/ListView";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -40,7 +37,7 @@ function AuthorEditView({ value }): JSX.Element {
     let author_id = params['author_id'];
     const isNewAuthor = author_id === "new";
 
-    const { isLoading, item, AuthorValidationSchema, loadAuthor, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
+    const { isLoading, item, loadAuthor, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
         author_id: author_id,
         history,
     });

@@ -1,5 +1,5 @@
 import React from "react";
-import { IAuthor, AuthorValidationSchema } from "../../../Domain/Entities/Author";
+import { IAuthor } from "../../../Domain/Entities/Author";
 import { AlertContext } from "../../../context_providers/alert_context";
 import AuthorRepository from "../../../Data/Repositories/AuthorRepository";
 import _ from "lodash";
@@ -112,7 +112,6 @@ function AuthorDetailVM({ author_id, history }) {
     return {
         isLoading,
         item,
-        AuthorValidationSchema,
         loadAuthor,
         isPayloadValid,
         onCancel,

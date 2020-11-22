@@ -12,12 +12,6 @@ export interface IGetCategoriesResponse {
     // error?: Error
 }
 
-export const CategoryValidationSchema = Yup.object({
-    name: Yup.string().required("Required!"),
-    description: Yup.string().required("Required!"),
-});
-
-
 export interface ISearchCategory {
     name?: string;
     limit: number;
