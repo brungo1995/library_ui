@@ -28,6 +28,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -128,6 +129,7 @@ function AuthorListView({ value }) {
         page,
         offset,
         rowsPerPage,
+        errorMessage,
         authorLastNameSearchText,
         setAuthorLastNameSearchText,
         setAuthorFirstNameSearchText,
@@ -327,6 +329,11 @@ function AuthorListView({ value }) {
 
                             </TableContainer>
 
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography paragraph style={{ color: "red", }}>
+                                {errorMessage}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Container>

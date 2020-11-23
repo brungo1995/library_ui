@@ -17,6 +17,8 @@ function BookDetailVM({ isbn_number, history }) {
     const Alert = React.useContext(AlertContext);
     const bookRepository = new BookRepository();
     const { categories, authors } = React.useContext(MainContext)
+    const [errorMessage, setErrorMessage] = React.useState("");
+
 
     React.useEffect(() => {
         if (isbn_number === "new") {
@@ -27,12 +29,13 @@ function BookDetailVM({ isbn_number, history }) {
     async function createBook() {
         let payload = { ...item, categories: bookCategories.map((cat: ICategory) => parseInt(cat.category_id)) }
         const { book, error } = await bookRepository.createBook({ ...item, categories: bookCategories.map((cat: ICategory) => parseInt(cat.category_id)) });
-        // setSubmitting(false);
+
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
-        // console.log("CREATED CATEGORY: => ", book)
+
 
         Alert.info("Book Created");
         history.replace(`/book/${book.isbn_number}/info`, { isReloadBookList: true });
@@ -43,6 +46,7 @@ function BookDetailVM({ isbn_number, history }) {
         let { book, error } = await bookRepository.loadBook(isbn_number);
         setLoading(false);
         if (error) {
+            setErrorMessage(error.message)
             Alert.error(error.message);
             return;
         }
@@ -130,6 +134,7 @@ function BookDetailVM({ isbn_number, history }) {
         const { book, error } = await bookRepository.updateBook(payload);
         // setSubmitting(false);
         if (error) {
+            setErrorMessage(error.message)
             Alert.error(error.message);
             return;
         }
@@ -154,6 +159,7 @@ function BookDetailVM({ isbn_number, history }) {
         isLoading, bookCategories,
         item,
         categories,
+        errorMessage,
         isPayloadValid,
         handleInputChangeCategories,
         loadBook,

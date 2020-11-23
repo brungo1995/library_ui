@@ -6,6 +6,7 @@ import { NavLink, RouteComponentProps } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
@@ -37,7 +38,7 @@ function AuthorEditView({ value }): JSX.Element {
     let author_id = params['author_id'];
     const isNewAuthor = author_id === "new";
 
-    const { isLoading, item, loadAuthor, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
+    const { isLoading, item, errorMessage, loadAuthor, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
         author_id: author_id,
         history,
     });
@@ -113,6 +114,11 @@ function AuthorEditView({ value }): JSX.Element {
                                 </Button>
                             </Grid>
 
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography paragraph style={{ color: "red", }}>
+                                {errorMessage}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </div>

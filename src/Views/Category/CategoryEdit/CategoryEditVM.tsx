@@ -11,6 +11,7 @@ function CategoryDetailVM({ category_id, history }) {
     const [isLoading, setLoading] = React.useState<boolean>(false);
     const Alert = React.useContext(AlertContext);
     const categoryRepository = new CategoryRepository();
+    const [errorMessage, setErrorMessage] = React.useState("")
 
     React.useEffect(() => {
         if (category_id === "new") {
@@ -23,6 +24,7 @@ function CategoryDetailVM({ category_id, history }) {
         // setSubmitting(false);
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
         // console.log("CREATED CATEGORY: => ", category)
@@ -37,6 +39,7 @@ function CategoryDetailVM({ category_id, history }) {
         setLoading(false);
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
 
@@ -98,6 +101,7 @@ function CategoryDetailVM({ category_id, history }) {
         // setSubmitting(false);
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
         Alert.info("Category Updated");
@@ -111,6 +115,7 @@ function CategoryDetailVM({ category_id, history }) {
     return {
         isLoading,
         item,
+        errorMessage,
         isPayloadValid,
         loadCategory,
         onCancel,

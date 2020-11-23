@@ -15,6 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { MainContext } from "../../../context_providers/main_context"
 import { IAuthor } from "../../../Domain/Entities/Author";
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,6 +51,7 @@ function BookEditView({ value }): JSX.Element {
 
     const { isLoading,
         item, bookCategories,
+        errorMessage,
         loadBook,
         onCancel,
         handleInputChange,
@@ -212,6 +214,11 @@ function BookEditView({ value }): JSX.Element {
                             </Grid>
 
                         </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography paragraph style={{ color: "red", }}>
+                            {errorMessage}
+                        </Typography>
                     </Grid>
                 </div>
             </Container>

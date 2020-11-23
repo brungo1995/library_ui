@@ -8,6 +8,7 @@ function BookInfoVM({ isbn_number, history }) {
     const [item, setItem] = React.useState<IBookResponseCollection>({} as IBookResponseCollection);
     const Alert = React.useContext(AlertContext);
     const bookRepository = new BookRepository();
+    const [errorMessage, setErrorMessage] = React.useState("")
 
     async function loadBook(): Promise<void> {
         setIsLoading(true);
@@ -18,6 +19,7 @@ function BookInfoVM({ isbn_number, history }) {
 
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
 
@@ -32,7 +34,7 @@ function BookInfoVM({ isbn_number, history }) {
         let { error } = await bookRepository.removeBook(isbn_number);
         if (error) {
             Alert.error(error.message);
-            console.log(error)
+            setErrorMessage(error.message)
             return;
         }
         Alert.info("Book Removed");
@@ -41,7 +43,7 @@ function BookInfoVM({ isbn_number, history }) {
     }
 
     return {
-        isLoading, item, loadBook, onDelete,
+        isLoading, item, loadBook, onDelete, errorMessage
         // onEdit
     };
 }

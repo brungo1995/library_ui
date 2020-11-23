@@ -18,10 +18,9 @@ export default function BookListVM({ history, location }) {
   const [publishedYearErrorMeesage, setYearPublishedErrorMeesage] = React.useState("");
   const [year_published, setYearPublished] = React.useState("");
   const [offset, setOffset] = React.useState(0);
-
+  const [errorMessage, setErrorMessage] = React.useState("")
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
   // const Alert = React.useContext(AlertContext);
 
   const bookRepository = new BookRepository();
@@ -52,6 +51,7 @@ export default function BookListVM({ history, location }) {
       setItems([]);
       setMasterItems([]);
       setNumberOfRows(0);
+      setErrorMessage(error.message)
       return;
     }
 
@@ -123,6 +123,7 @@ export default function BookListVM({ history, location }) {
     year_published,
     page,
     offset,
+    errorMessage,
     rowsPerPage,
     isValidPublishedYear,
     publishedYearErrorMeesage,

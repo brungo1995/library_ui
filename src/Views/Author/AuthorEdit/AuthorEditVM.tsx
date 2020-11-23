@@ -10,6 +10,7 @@ function AuthorDetailVM({ author_id, history }) {
     const [masterItem, setMasterItem] = React.useState<IAuthor>(initialValue);
     const [isLoading, setLoading] = React.useState<boolean>(false);
     const Alert = React.useContext(AlertContext);
+    const [errorMessage, setErrorMessage] = React.useState("")
     const authorRepository = new AuthorRepository();
 
     React.useEffect(() => {
@@ -23,6 +24,7 @@ function AuthorDetailVM({ author_id, history }) {
         // setSubmitting(false);
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
         // console.log("CREATED CATEGORY: => ", author)
@@ -37,6 +39,7 @@ function AuthorDetailVM({ author_id, history }) {
         setLoading(false);
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
 
@@ -99,6 +102,7 @@ function AuthorDetailVM({ author_id, history }) {
         // setSubmitting(false);
         if (error) {
             Alert.error(error.message);
+            setErrorMessage(error.message)
             return;
         }
         Alert.info("Author Updated");
@@ -112,6 +116,7 @@ function AuthorDetailVM({ author_id, history }) {
     return {
         isLoading,
         item,
+        errorMessage,
         loadAuthor,
         isPayloadValid,
         onCancel,

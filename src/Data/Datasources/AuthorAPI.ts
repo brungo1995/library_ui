@@ -21,7 +21,8 @@ const AuthorAPI = {
             // console.log(response.data)
             return { author: response.data.data, error: null };
         } catch (error) {
-            return { author: null, error: new Error(`Could not load Author`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { author: null, error: new Error(message || `Could not load Author`) }
         }
     },
 
@@ -45,7 +46,8 @@ const AuthorAPI = {
 
             return { authors: response.data.data, count: parseInt(response.data.count), error: null };
         } catch (error) {
-            return { authors: [] as IAuthor[], count: 0, error: new Error(`Could not load Authors`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { authors: [] as IAuthor[], count: 0, error: new Error(message || `Could not load Authors`) }
         }
     },
 
@@ -55,7 +57,8 @@ const AuthorAPI = {
             console.log("REMOVE AUTHOR API RESPONSE: =>", response.data)
             return { error: null };
         } catch (error) {
-            return { error: new Error(`Could not remove Author`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { error: new Error(message || `Could not remove Author`) }
         }
     },
 
@@ -66,7 +69,8 @@ const AuthorAPI = {
             console.log("UPDATE AUTHOR API RESPONSE: =>", response.data)
             return { author: response.data, error: null };
         } catch (error) {
-            return { author: null, error: new Error(`Could not update Author`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { author: null, error: new Error(message || `Could not update Author`) }
         }
     }
 }

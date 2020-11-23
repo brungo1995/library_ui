@@ -14,6 +14,7 @@ export default function AuthorListVM({ history, location }) {
   const [authorLastNameSearchText, setAuthorLastNameSearchText] = React.useState("");
   const [limit, setLimit] = React.useState(0);
   const [offset, setOffset] = React.useState(0);
+  const [errorMessage, setErrorMessage] = React.useState("")
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -39,8 +40,7 @@ export default function AuthorListVM({ history, location }) {
 
     setLoading(false);
     if (error) {
-      // Alert.error(error.message);
-      console.log(error)
+      setErrorMessage(error.message)
       return;
     }
 
@@ -75,6 +75,7 @@ export default function AuthorListVM({ history, location }) {
     offset,
     rowsPerPage,
     authorLastNameSearchText,
+    errorMessage,
     onAdd,
     setAuthorLastNameSearchText,
     setAuthorFirstNameSearchText,

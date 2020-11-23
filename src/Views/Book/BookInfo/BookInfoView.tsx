@@ -34,7 +34,7 @@ function BookInfoView({ value }): JSX.Element {
     const params = useParams();
     let isbn_number = params['isbn_number'];
 
-    const { isLoading, item, loadBook, onDelete, } = useVM({
+    const { isLoading, item, errorMessage, loadBook, onDelete, } = useVM({
         isbn_number,
         history: history,
     });
@@ -128,6 +128,12 @@ function BookInfoView({ value }): JSX.Element {
                                         startIcon={<EditIcon />}>Edit
                             </Button>
                                 </Grid>
+                                <Grid item xs={12}>
+                                    <Typography paragraph style={{ color: "red", }}>
+                                        {errorMessage}
+                                    </Typography>
+                                </Grid>
+
                             </Grid>
                         )}
                 </div>

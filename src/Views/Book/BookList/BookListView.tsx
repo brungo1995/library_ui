@@ -27,6 +27,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
 import { MainContext } from "../../../context_providers/main_context"
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -140,6 +141,7 @@ function BookListView({ value }) {
         isbn_number,
         year_published,
         page,
+        errorMessage,
         offset,
         rowsPerPage,
         isValidPublishedYear,
@@ -512,6 +514,12 @@ function BookListView({ value }) {
 
                             </TableContainer>
 
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Typography paragraph style={{ color: "red", }}>
+                                {errorMessage}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Container>

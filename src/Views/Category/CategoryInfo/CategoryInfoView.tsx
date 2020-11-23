@@ -112,12 +112,3 @@ function CategoryInfoView({ value }): JSX.Element {
 }
 
 export default CategoryInfoView;
-
-
-const data =
-{
-    "category_id": 1,
-    "name": "Action",
-    "description": "A film with a fast-moving plot , usually containing scenes of violence ",
-    "operation_by_user": "Domingos"
-}

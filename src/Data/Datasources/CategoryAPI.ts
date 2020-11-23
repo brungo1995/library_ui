@@ -9,7 +9,8 @@ const CategoryAPI = {
             // debugger
             return { category: response.data.data, error: null };
         } catch (error) {
-            return { category: null, error: new Error(`Could not create Category`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { category: null, error: new Error(message || `Could not create Category`) }
         }
     },
 
@@ -19,7 +20,8 @@ const CategoryAPI = {
             // console.log(response.data)
             return { category: response.data.data, error: null };
         } catch (error) {
-            return { category: null, error: new Error(`Could not load Category`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { category: null, error: new Error(message || `Could not load Category`) }
         }
     },
 
@@ -39,7 +41,8 @@ const CategoryAPI = {
             // console.log(response.data)
             return { categories: response.data.data, count: parseInt(response.data.count), error: null };
         } catch (error) {
-            return { categories: [] as ICategory[], count: 0, error: new Error(`Could not load Categories`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { categories: [] as ICategory[], count: 0, error: new Error(message || `Could not load Categories`) }
         }
     },
 
@@ -48,7 +51,8 @@ const CategoryAPI = {
             let response = await utilities.deleteApiCall(`category/${categoryId}`);
             return { error: null };
         } catch (error) {
-            return { error: new Error(`Could not remove Category`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { error: new Error(message || `Could not remove Category`) }
         }
     },
 
@@ -58,7 +62,8 @@ const CategoryAPI = {
             let response = await utilities.putApiCall(url, category);
             return { category: response.data, error: null };
         } catch (error) {
-            return { category: null, error: new Error(`Could not update Category`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { category: null, error: new Error(message || `Could not update Category`) }
         }
     }
 }

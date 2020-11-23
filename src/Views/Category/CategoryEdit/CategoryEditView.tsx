@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import TabPanel from "../../../components/TabPanel";
 import { useHistory, useParams } from "react-router-dom";
 import useVM from "./CategoryEditVM";
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,7 +35,7 @@ function CategoryEditView({ value }): JSX.Element {
     let category_id = params['category_id'];
     const isNewCategory = category_id === "new";
 
-    const { isLoading, item, loadCategory, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
+    const { isLoading, item, errorMessage, loadCategory, onCancel, handleInputChange, onSave, isPayloadValid } = useVM({
         category_id: category_id,
         history,
     });
@@ -112,6 +113,11 @@ function CategoryEditView({ value }): JSX.Element {
                                 </Button>
                             </Grid>
 
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography paragraph style={{ color: "red", }}>
+                                {errorMessage}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </div>

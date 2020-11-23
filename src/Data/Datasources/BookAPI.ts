@@ -9,7 +9,8 @@ const BookAPI = {
             // console.log("CREATE BOOK API RESPONSE: =>", response.data.data)
             return { book: response.data.data, error: null };
         } catch (error) {
-            return { book: null, error: new Error(`Could not create Book`) }
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
+            return { book: null, error: new Error(message || `Could not create Book`) }
         }
     },
 
@@ -20,6 +21,7 @@ const BookAPI = {
             // console.log(response.data)
             return { book: response.data.data, error: null };
         } catch (error) {
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
             return { book: null, error: new Error(`Could not load Book`) }
         }
     },
@@ -58,6 +60,7 @@ const BookAPI = {
 
             return { data: response.data.data, count: parseInt(response.data.count), error: null };
         } catch (error) {
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
             return { data: null, count: 0, error: new Error(`Could not load Books`) }
         }
     },
@@ -68,6 +71,7 @@ const BookAPI = {
             console.log("REMOVE BOOK API RESPONSE: =>", response.data)
             return { error: null };
         } catch (error) {
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
             return { error: new Error(`Could not remove Book`) }
         }
     },
@@ -79,6 +83,7 @@ const BookAPI = {
             console.log("UPDATE BOOK API RESPONSE: =>", response.data)
             return { book: response.data, error: null };
         } catch (error) {
+            let message = (error && error.response && error.response && error.response.data && error.response.data.error) || ""
             return { book: null, error: new Error(`Could not update Book`) }
         }
     }

@@ -28,6 +28,7 @@ import useVM from "./CategoryListVM";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -120,7 +121,7 @@ function CategoryListView({ value }) {
     const location = useLocation();
 
 
-    const { totalNumberOfRows, isLoading, items, searchText, page, offset, rowsPerPage,
+    const { totalNumberOfRows, isLoading, errorMessage, items, searchText, page, offset, rowsPerPage,
         setRowsPerPage, setOffset, setPage, loadCategories, onSelect, setSearchText } = useVM({
             history, location,
         });
@@ -285,6 +286,12 @@ function CategoryListView({ value }) {
 
                             </TableContainer>
 
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Typography paragraph style={{ color: "red", }}>
+                                {errorMessage}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Container>

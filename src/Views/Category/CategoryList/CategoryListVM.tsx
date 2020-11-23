@@ -14,12 +14,11 @@ export default function CategoryListVM({ history, location }) {
   const [searchText, setSearchText] = React.useState("");
   const [limit, setLimit] = React.useState(0);
   const [offset, setOffset] = React.useState(0);
-
+  const [errorMessage, setErrorMessage] = React.useState("")
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // const Alert = React.useContext(AlertContext);
-  const { authors } = React.useContext(MainContext)
 
   const categoryRepository = new CategoryRepository();
 
@@ -42,6 +41,7 @@ export default function CategoryListVM({ history, location }) {
     setLoading(false);
     if (error) {
       // Alert.error(error.message);
+      setErrorMessage(error.message)
       console.log(error)
       return;
     }
@@ -73,6 +73,7 @@ export default function CategoryListVM({ history, location }) {
     items,
     searchText,
     page,
+    errorMessage,
     offset,
     rowsPerPage,
     setSearchText,

@@ -37,7 +37,7 @@ function AuthorInfoVM({ author_id, history }) {
         if (error) {
             Alert.error(error.message);
             console.log(error)
-            setErrorMessage(error.message + ". It might be linked to other entities")
+            setErrorMessage(error.message)
             return;
         }
         Alert.info("Author Removed");
